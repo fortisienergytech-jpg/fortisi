@@ -37,6 +37,59 @@
   }
   </script>
 <link href="assets/css/styles.css?v=6.4" rel="stylesheet"/>
+<style id="fortisi-hero-video-mobile-fix">
+/* FÓRTISI · Hero video móvil
+   Evita que reglas responsive antiguas oculten el video en iPhone/Android. */
+#inicio.hero{
+  position:relative;
+  overflow:hidden;
+}
+#inicio.hero .hero__fallback,
+#inicio.hero .hero__video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+#inicio.hero .hero__fallback{
+  z-index:0;
+}
+#inicio.hero .hero__fallback img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+#inicio.hero .hero__video{
+  z-index:1;
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  object-fit:cover;
+  object-position:center center;
+  pointer-events:none;
+  background:transparent;
+}
+#inicio.hero .hero__overlay{
+  z-index:2;
+}
+#inicio.hero .hero__content,
+#inicio.hero .media-toggle,
+#inicio.hero .hero__rail{
+  position:relative;
+  z-index:3;
+}
+@media (max-width:720px){
+  #inicio.hero .hero__video{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-width:100%;
+    min-height:100%;
+    width:100%;
+    height:100%;
+  }
+}
+</style>
 
 <!-- Interfaz FÓRTISI -->
 <style id="fortisi-v64-solution-premium">
@@ -1663,7 +1716,7 @@ section .container .wrap{
 <source media="(max-width: 720px)" srcset="assets/images/hero-ev-charging.jpg"/>
 <img alt="Casa contemporánea con paneles solares y un vehículo eléctrico conectado" height="900" src="assets/images/hero.webp" width="1600"/>
 </picture>
-<video aria-hidden="true" autoplay="" class="hero__video" data-hero-video="" loop="" muted="" playsinline="" poster="assets/images/hero-ev-charging.jpg" preload="auto">
+<video aria-hidden="true" autoplay="" class="hero__video" data-hero-video="" loop="" muted="" playsinline="" webkit-playsinline="" disablepictureinpicture="" poster="assets/images/hero-ev-charging.jpg" preload="auto">
 <source src="assets/video/ev-home-charging.mp4" type="video/mp4"/>
 </video>
 <div aria-hidden="true" class="hero__overlay"></div>
@@ -3664,4 +3717,45 @@ section .container .wrap{
   });
   buttons.forEach(b => obs.observe(b, {attributes:true, attributeFilter:['class','aria-selected']}));
 })();
-</script></body></html>
+</script>
+<script id="fortisi-hero-video-mobile-js">
+(() => {
+  const video = document.querySelector('[data-hero-video]');
+  if (!video) return;
+
+  // Required for iOS autoplay.
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
+
+  const tryPlay = () => {
+    const p = video.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryPlay, { once:true });
+  } else {
+    tryPlay();
+  }
+
+  window.addEventListener('load', tryPlay, { once:true });
+  window.addEventListener('pageshow', tryPlay);
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && video.paused) tryPlay();
+  });
+
+  // Safari/iOS can refuse the initial autoplay in some conditions.
+  // First user interaction retries playback without showing controls.
+  ['touchstart','pointerdown','click'].forEach(evt => {
+    document.addEventListener(evt, () => {
+      if (video.paused) tryPlay();
+    }, { once:true, passive:true });
+  });
+})();
+</script>
+</body></html>
