@@ -193,7 +193,7 @@ form?.addEventListener("submit", async (event) => {
 
   const endpoint = window.FORTISI_CONFIG?.contactEndpoint?.trim();
   if (!endpoint) {
-    showStatus('El formulario todavía no está conectado a un servicio. Escribe a <a href="mailto:contacto@fortisi.cl">contacto@fortisi.cl</a> o llama al <a href="tel:+56987654321">+56 9 8765 4321</a>. No se simuló el envío.');
+    showStatus('El formulario todavía no está conectado a un servicio. Puedes escribir a <a href="mailto:contacto@fortisi.cl">contacto@fortisi.cl</a> o llamar al <a href="tel:+56988221485">+56 9 8822 1485</a>. No se simuló el envío.');
     return;
   }
 
@@ -226,7 +226,7 @@ form?.addEventListener("submit", async (event) => {
 
   const SURVEY_ENDPOINT = window.FORTISI_CONFIG?.surveyEndpoint?.trim?.() || "";
   const SURVEY_REMOTE_ENABLED = /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/.test(SURVEY_ENDPOINT);
-  const ADMIN_DEMO_PASSWORD = "R3P_8vL#Qm27";
+  const ADMIN_DEMO_PASSWORD = "GTIS2026";
   const protoState = {
     diagnosticUsed:false,
     diagnosticCompleted:false,
@@ -258,31 +258,31 @@ form?.addEventListener("submit", async (event) => {
 
   const kits={
     INICIA:{
-      name:"INICIA",price:"Desde $789.900 + IVA",
+      name:"INICIA",price:"Desde $940.000 IVA incluido",
       desc:"Instalamos y certificamos el cargador que ya tienes, previa evaluación de la instalación eléctrica del hogar.",
       inc:["Diagnóstico técnico del hogar","Proyecto y adecuación eléctrica requerida","Instalación del equipo aportado por el cliente","Gestión TE-6 SEC cuando corresponda"],
       benefit:"Ahorras tiempo y dinero cada vez que cargas. En casa puedes aprovechar la tarifa residencial BT1, normalmente menor que la carga pública, y cargar mientras el auto está estacionado. Como referencia FÓRTISI, la carga residencial puede costar aproximadamente 30–50% menos que carga pública AC y 50–65% menos que carga rápida DC, además de entregarte una instalación evaluada y certificada."
     },
     CONECTA:{
-      name:"CONECTA",price:"Desde $1.929.000 + IVA",
+      name:"CONECTA",price:"Desde $2.300.000 IVA incluido",
       desc:"FÓRTISI suministra, instala y certifica tu cargador residencial en un solo proceso.",
       inc:["Diagnóstico técnico previo","Cargador residencial dimensionado para el proyecto","Instalación profesional completa","Gestión TE-6 SEC cuando corresponda","Garantía del equipo"],
       benefit:"Ahorras tiempo y dinero al cargar en casa. La tarifa residencial BT1 suele ser menor que la carga pública, por lo que como referencia FÓRTISI puedes pagar aproximadamente 30–50% menos que en carga AC pública y 50–65% menos que en carga rápida DC. El resultado depende de tarifas, vehículo y hábitos de carga."
     },
     GENERA:{
-      name:"GENERA",price:"Desde $7.290.000 + IVA",
+      name:"GENERA",price:"Desde $8.690.000 IVA incluido",
       desc:"Generación solar on-grid orientada a la movilidad: los excedentes diurnos se valorizan mediante Netbilling para compensar parte de la energía comprada después al cargar el vehículo. Puede usar tu cargador actual o sumar uno al proyecto; la versión base no incorpora batería.",
       inc:["Diagnóstico y dimensionamiento","Sistema fotovoltaico","Inversor on-grid y protecciones","Netbilling y certificaciones cuando corresponda","Integración con cargador existente o carga residencial opcional","Orientación en financiamiento verde"],
       benefit:"El beneficio de GENERA es principalmente financiero: produces durante el día y los excedentes valorizados mediante Netbilling ayudan a compensar parte de la energía que comprarás después, por ejemplo al cargar tu vehículo de noche. El resultado real depende de radiación, generación, autoconsumo, valorización de excedentes, tarifa y hábitos de carga."
     },
     ALMACENA:{
-      name:"ALMACENA",price:"Desde $9.890.000 + IVA",
+      name:"ALMACENA",price:"Desde $11.790.000 IVA incluido",
       desc:"Solar + inversor híbrido + batería para almacenar físicamente energía durante el día y utilizarla después, con foco en apoyar la carga nocturna del vehículo. Puede usar tu cargador actual o incorporar uno al proyecto.",
       inc:["Sistema solar fotovoltaico","Inversor híbrido y protecciones","Batería de almacenamiento","Integración con carga residencial","Gestión energética","Certificaciones aplicables","Orientación en financiamiento verde"],
       benefit:"ALMACENA cambia la lógica: en vez de compensar solo financieramente mediante Netbilling, guarda físicamente energía solar para utilizarla después, especialmente al cargar el vehículo fuera del horario solar. El beneficio depende de generación, capacidad de batería, eficiencia, tarifa y hábitos de carga."
     },
     CASA:{
-      name:"CASA FÓRTISI",price:"Desde $12.490.000 + IVA",
+      name:"CASA FÓRTISI",price:"Desde $14.890.000 IVA incluido",
       desc:"Integramos generación solar, batería de mayor capacidad, carga residencial y consumos del hogar bajo una misma gestión energética, con acompañamiento FÓRTISI CUIDA.",
       inc:["Sistema fotovoltaico dimensionado para vivienda + movilidad","Inversor híbrido y batería de mayor capacidad","Carga residencial integrada","Gestión energética de hogar y vehículo","Adecuaciones, protecciones y gestión SEC aplicable","Garantía extendida","Mantención anual sin costo durante 2 años","Monitoreo en línea del sistema fotovoltaico","Gestión directa de equipos al final de su vida útil"],
       benefit:"El ahorro integra carga residencial, generación solar y almacenamiento: pagas menos por cargar que en alternativas públicas, produces parte de la electricidad que consume el hogar y aprovechas mejor esa energía mediante batería. El retorno debe calcularse caso a caso según consumo, kilómetros recorridos, radiación, tarifas, batería y financiamiento."
@@ -432,7 +432,8 @@ form?.addEventListener("submit", async (event) => {
   const surveyForm=document.querySelector("[data-survey-form]");
   const surveyStatus=document.querySelector("[data-survey-status]");
 
-  function openSurvey(){
+  function openSurvey(e){
+    e?.preventDefault();
     modal.hidden=false;
     document.body.style.overflow="hidden";
     track("survey_opened",{diagnosticUsed:protoState.diagnosticUsed});
@@ -569,20 +570,43 @@ async function saveSurvey(data){
       if(refreshBtn){refreshBtn.disabled=false;refreshBtn.textContent="Actualizar";}
     }
     const n=data.length;
-    document.querySelector("[data-admin-total]").textContent=n;
+    document.querySelectorAll("[data-admin-total]").forEach(el=>el.textContent=n);
+    document.querySelectorAll("[data-admin-total-top]").forEach(el=>el.textContent=n);
+    document.querySelectorAll("[data-admin-total-raw]").forEach(el=>el.textContent=n);
 
-    // Indicadores-resumen calculados SOLO con las 8 preguntas vigentes.
-    const positiveCount=data.filter(r=>["muy_claro","claro"].includes(r.clarity)).length;
-    document.querySelector("[data-admin-positive]").textContent=pct(positiveCount,n);
+    // Compatibilidad con respuestas históricas y con las 10 preguntas vigentes.
+    // Google Forms conserva el texto original de alternativas que luego fueron editadas.
+    const normalizedText=value=>String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+    const clarityKey=value=>{
+      const v=normalizedText(value);
+      if(value==="muy_claro"||v.includes("muy claro")||v.includes("me encanto")) return "muy_claro";
+      if(value==="claro"||v.includes("bastante claro")||v.includes("me gusto")) return "claro";
+      if(value==="poco_claro"||v.includes("duda")) return "poco_claro";
+      if(value==="no_entendi"||v.includes("necesita ser mas clara")) return "no_entendi";
+      return value||"";
+    };
+    const helpfulKey=value=>{
+      const v=normalizedText(value);
+      if(value==="simulador"||v.includes("simulador")) return "simulador";
+      if(value==="kits"||v.includes("los kit")||v.includes("evolucion de las soluciones")) return "kits";
+      if(value==="casa"||v.includes("casa fortisi")) return "casa";
+      if(value==="dudas"||v.includes("duda")) return "dudas";
+      if(value==="informacion"||v.includes("instalacion")||v.includes("garantia")) return "informacion";
+      if(v.includes("definitivamente")) return "recomendaria_si";
+      if(v.includes("probablemente")) return "recomendaria_probable";
+      return value||"";
+    };
+    data.forEach(r=>{r.clarity=clarityKey(r.clarity);r.helpfulElement=helpfulKey(r.helpfulElement);});
 
-    const simulatorUsed=data.filter(r=>r.savingsModule && r.savingsModule!=="no_lo_use").length;
-    document.querySelector("[data-admin-simulator]").textContent=pct(simulatorUsed,n);
+    // Los tres indicadores principales replican la lógica usada en la lámina de validación del pitch.
+    const orientationPositive=data.filter(r=>["muy_util","util"].includes(r.kitAdvisor)).length;
+    document.querySelectorAll("[data-admin-orientation]").forEach(el=>el.textContent=pct(orientationPositive,n));
 
     const contactPositive=data.filter(r=>["muy_probable","probable"].includes(r.contactIntent)).length;
-    document.querySelector("[data-admin-contact]").textContent=pct(contactPositive,n);
+    document.querySelectorAll("[data-admin-contact]").forEach(el=>el.textContent=pct(contactPositive,n));
 
-    const fortisiContactPositive=data.filter(r=>["si_definitivamente","probablemente_si"].includes(r.fortisiContact)).length;
-    document.querySelector("[data-admin-fortisi-contact]").textContent=pct(fortisiContactPositive,n);
+    const solutionPositive=data.filter(r=>r.solutionFit==="si_claramente").length;
+    document.querySelectorAll("[data-admin-solution]").forEach(el=>el.textContent=pct(solutionPositive,n));
 
     const q1Labels={
       muy_claro:"😍 Me encantó",
@@ -624,10 +648,13 @@ async function saveSurvey(data){
       sin_interes:"No tiene y por ahora no le interesa"
     };
     const q9Labels={
-      si_definitivamente:"Sí, definitivamente",
-      probablemente_si:"Probablemente sí",
-      tal_vez_mas_info:"Tal vez, necesitaría más información",
-      no_lo_creo:"No lo creo"
+      simulador:"💰 Simulador de ahorro",
+      kits:"🧩 KIT y evolución de soluciones",
+      casa:"🏡 Casa FÓRTISI",
+      informacion:"🛡️ Información sobre instalación, garantías y acompañamiento",
+      dudas:"🤔 Aún quedaron dudas",
+      recomendaria_si:"Respuesta histórica: sí recomendaría FÓRTISI",
+      recomendaria_probable:"Respuesta histórica: probablemente recomendaría FÓRTISI"
     };
 
     function countSingle(field,labels){
@@ -660,7 +687,47 @@ async function saveSurvey(data){
     bars(document.querySelector("[data-admin-q6]"),countSingle("solutionFit",q6Labels),n);
     bars(document.querySelector("[data-admin-q7]"),countSingle("contactIntent",q7Labels),n);
     bars(document.querySelector("[data-admin-q8]"),countSingle("vehicleStatus",q8Labels),n);
-    bars(document.querySelector("[data-admin-q9]"),countSingle("fortisiContact",q9Labels),n);
+    bars(document.querySelector("[data-admin-q9]"),countSingle("helpfulElement",q9Labels),n);
+    // Moderación institucional de la pregunta abierta. Si un comentario contiene
+    // lenguaje vulgar, ofensivo o discriminatorio, no se muestra en el dashboard.
+    const moderationTerms=[
+      "weon","weona","hueon","hueona","huevon","huevona","wn","culiao","culiada","culiado",
+      "conchetumadre","conchesumadre","ctm","chucha","mierda","mierdas","puta","puto","putas","putos",
+      "pico","pichula","verga","cagar","cagada","cagado","imbecil","idiota","estupido","estupida",
+      "maricon","maricona","maraco","maraca","perra","zorra","bastardo","bastarda","negro culiao",
+      "mongolico","mongolica","retardado","retardada"
+    ];
+    const normalizeModeration=value=>String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+    const isCommentAllowed=value=>{
+      const v=" "+normalizeModeration(value).replace(/[^a-z0-9ñ]+/g," ").replace(/\s+/g," ").trim()+" ";
+      return !moderationTerms.some(term=>{
+        const t=normalizeModeration(term).replace(/[^a-z0-9ñ]+/g," ").trim();
+        return t && v.includes(" "+t+" ");
+      });
+    };
+    const moderatedLabel="Comentario oculto por moderación";
+    const comments=data.map(r=>String(r.improvement||"").trim()).filter(Boolean).filter(isCommentAllowed);
+    const commentsEl=document.querySelector("[data-admin-q10]");
+    const carouselControls=document.querySelector("[data-admin-carousel-controls]");
+    const carouselCounter=document.querySelector("[data-admin-comment-counter]");
+    let commentIndex=0;
+    const renderComment=()=>{
+      if(!commentsEl) return;
+      if(!comments.length){
+        commentsEl.innerHTML='<div class="admin-empty">Aún no hay comentarios cualitativos aptos para mostrar.</div>';
+        if(carouselControls) carouselControls.hidden=true;
+        return;
+      }
+      commentIndex=(commentIndex+comments.length)%comments.length;
+      commentsEl.innerHTML=`<blockquote class="admin-comment-slide"><span class="admin-comment-quote">“</span><p>${esc(comments[commentIndex])}</p></blockquote>`;
+      if(carouselCounter) carouselCounter.textContent=`${commentIndex+1} / ${comments.length}`;
+      if(carouselControls) carouselControls.hidden=comments.length<=1;
+    };
+    renderComment();
+    const prev=document.querySelector("[data-admin-comment-prev]");
+    const next=document.querySelector("[data-admin-comment-next]");
+    if(prev) prev.onclick=()=>{commentIndex--;renderComment();};
+    if(next) next.onclick=()=>{commentIndex++;renderComment();};
 
     const table=document.querySelector("[data-admin-table]");
     table.innerHTML=n?`<table class="admin-table">
@@ -668,7 +735,7 @@ async function saveSurvey(data){
         <th>Fecha</th><th>1. Experiencia</th><th>2. Servicios recordados</th>
         <th>3. Utilidad ahorro</th><th>4. Claridad simulador</th>
         <th>5. Orientación KIT</th><th>6. Identifica solución</th>
-        <th>7. Intención diagnóstico</th><th>8. Situación actual</th><th>9. Contactaría FÓRTISI</th>
+        <th>7. Intención diagnóstico</th><th>8. Situación actual</th><th>9. Elemento útil</th><th>10. Mejora sugerida</th>
       </tr></thead>
       <tbody>${data.slice().reverse().map(r=>{
         const remembered=Array.isArray(r.servicesRemembered)
@@ -684,11 +751,30 @@ async function saveSurvey(data){
           <td>${esc(q6Labels[r.solutionFit]||r.solutionFit||"")}</td>
           <td>${esc(q7Labels[r.contactIntent]||r.contactIntent||"")}</td>
           <td>${esc(q8Labels[r.vehicleStatus]||r.vehicleStatus||"")}</td>
-          <td>${esc(q9Labels[r.fortisiContact]||r.fortisiContact||"")}</td>
+          <td>${esc(q9Labels[r.helpfulElement]||r.helpfulElement||"")}</td>
+          <td>${esc(r.improvement ? (isCommentAllowed(r.improvement)?r.improvement:moderatedLabel) : "")}</td>
         </tr>`;
       }).join("")}</tbody>
     </table>`:'<div class="admin-empty">Aún no hay respuestas registradas.</div>';
   }
+
+  // Navegación del dashboard: resumen ejecutivo y respuestas completas.
+  const activateAdminView=(view,activeBtn)=>{
+    document.querySelectorAll("[data-admin-tab], [data-admin-jump]").forEach(b=>b.classList.toggle("is-active",b===activeBtn));
+    document.querySelectorAll("[data-admin-panel-view]").forEach(panel=>{
+      const active=panel.dataset.adminPanelView===view; panel.classList.toggle("is-active",active); panel.hidden=!active;
+    });
+  };
+  document.querySelectorAll("[data-admin-tab]").forEach(btn=>{
+    btn.addEventListener("click",()=>activateAdminView(btn.dataset.adminTab,btn));
+  });
+  document.querySelectorAll("[data-admin-jump]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      activateAdminView("summary",btn);
+      const target=document.querySelector(btn.dataset.adminJump==="comments"?"#admin-comments":"#admin-results");
+      target?.scrollIntoView({behavior:"smooth",block:"start"});
+    });
+  });
 
   loginForm?.addEventListener("submit",e=>{
     e.preventDefault();
@@ -698,7 +784,11 @@ async function saveSurvey(data){
   });
   document.querySelector("[data-admin-refresh]")?.addEventListener("click",renderAdmin);
   document.querySelector("[data-admin-export]")?.addEventListener("click",async()=>{
-    const data=await rows();if(!data.length)return;
+    let data=await rows();if(!data.length)return;
+    const exportBlocked=["weon","weona","hueon","hueona","huevon","huevona","culiao","culiada","culiado","conchetumadre","conchesumadre","ctm","chucha","mierda","puta","puto","pico","pichula","verga","maricon","maricona","maraco","maraca","mongolico","mongolica","retardado","retardada"];
+    const exportNorm=v=>String(v||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9ñ]+/g," ");
+    const exportAllowed=v=>{const x=" "+exportNorm(v).trim()+" ";return !exportBlocked.some(t=>x.includes(" "+exportNorm(t).trim()+" "));};
+    data=data.map(r=>({...r,improvement:r.improvement&&!exportAllowed(r.improvement)?"Comentario oculto por moderación":r.improvement}));
     const keys=[...new Set(data.flatMap(r=>Object.keys(r)))];
     const q=v=>`"${String(Array.isArray(v)?v.join(" | "):v??"").replaceAll('"','""')}"`;
     const csv=[keys.map(q).join(","),...data.map(r=>keys.map(k=>q(r[k])).join(","))].join("\n");
@@ -1135,7 +1225,7 @@ async function saveSurvey(data){
   // abrimos WhatsApp con el mensaje precargado para demostrar la experiencia.
   if (!number) {
     link.href = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    link.setAttribute('aria-label','Abrir WhatsApp con un mensaje para FÓRTISI');
+    link.setAttribute('aria-label','Preparar un mensaje para FÓRTISI en WhatsApp');
     return;
   }
   link.href = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
