@@ -1,0 +1,24 @@
+FÓRTISI · REVISIÓN PROTOTIPO FINAL
+
+Cambios aplicados:
+- Nomenclatura unificada: INICIA, CONECTA, GENERA, ALMACENA y CASA FÓRTISI.
+- Precios visibles convertidos a valores comerciales finales con IVA incluido.
+- Valores comerciales respaldados por las fichas de costos del modelo financiero.
+- Reemplazo del teléfono ficticio por el número oficial informado para contacto y WhatsApp.
+- WhatsApp conectado al número oficial mediante assets/js/config.js.
+- Encuesta identificada explícitamente como evaluación del prototipo.
+- Encuesta actualizada a 10 preguntas y una duración referencial de 2 minutos.
+- Google Forms oficial incrustado dentro de la página.
+- Dashboard conectado a las 35 respuestas reales mediante Google Apps Script.
+- Compatibilidad con alternativas históricas y con las 10 preguntas vigentes.
+- Dashboard, simuladores, diagnóstico y Casa FÓRTISI preservados.
+
+Precios visibles:
+- INICIA: desde $940.000 IVA incluido.
+- CONECTA: desde $2.300.000 IVA incluido.
+- GENERA: desde $8.690.000 IVA incluido.
+- ALMACENA: desde $11.790.000 IVA incluido.
+- CASA FÓRTISI: desde $14.890.000 IVA incluido.
+
+Configuración pendiente antes de publicar:
+- Conectar el formulario general de contacto a un servicio real cuando corresponda.

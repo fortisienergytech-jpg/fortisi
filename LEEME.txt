@@ -1,0 +1,137 @@
+
+*** V6.8 GOOGLE SHEETS ***
+La encuesta ya está preparada para almacenamiento central en Google Sheets.
+Usa VINCULAR_GOOGLE_SHEETS.txt. Las referencias antiguas a localStorage describen versiones previas.
+
+FÓRTISI · SITIO COMPLETO DEL PROTOTIPO
+======================================
+
+ARCHIVO PRINCIPAL
+- index.html
+
+ESTRUCTURA
+- assets/css/styles.css
+- assets/js/app.js
+- assets/js/config.js
+- assets/images/
+- assets/video/
+
+QUÉ ESTÁ INTEGRADO
+- Diseño y lenguaje actual de fortisi.cl.
+- Precios finales:
+  INICIA          $940.000 IVA incluido
+  CONECTA       $2.300.000 IVA incluido
+  GENERA        $8.690.000 IVA incluido
+  ALMACENA     $11.790.000 IVA incluido
+  CASA FÓRTISI $14.890.000 IVA incluido
+- Servicios desplegables.
+- Diagnóstico interactivo para orientar el punto de partida.
+- Respuestas del diagnóstico con énfasis profesional en comodidad,
+  seguridad y ahorro energético.
+- Pestaña visible “Evalúa este prototipo · 2 min”.
+- Google Forms oficial incrustado dentro de la web.
+- Conexión activa con las respuestas reales de la Google Sheet vinculada.
+- Dashboard administrador oculto.
+- Exportación de respuestas a CSV.
+
+ACCESO ADMINISTRADOR
+1. Haz 5 clics seguidos en el logo FÓRTISI del encabezado.
+2. Clave:
+   GTIS2026
+
+IMPORTANTE SOBRE EL DASHBOARD
+El acceso oculto dentro del código sirve para demostración/prototipo,
+pero no equivale a seguridad de servidor.
+
+IMPORTANTE SOBRE LA ENCUESTA
+El formulario incrustado guarda directamente en Google Forms. El dashboard
+consulta la Google Sheet por medio del endpoint configurado en assets/js/config.js.
+La conexión permanece activa aunque se vuelva a publicar el mismo proyecto en Vercel.
+
+ASSETS
+Las imágenes que fueron adjuntadas están incluidas físicamente en la carpeta.
+Los recursos visuales que no fueron adjuntados (algunas imágenes y videos)
+siguen apuntando a https://fortisi.cl/assets/, para que el diseño no se rompa.
+
+VIDEO DEL HERO
+- Video local optimizado: assets/video/ev-home-charging.mp4.
+- Muestra la conexión física del cargador al vehículo eléctrico y reemplaza
+  el video anterior centrado únicamente en paneles solares.
+- Fuente: Pexels, video 4817952, autor Gustavo Fring, marcado como gratuito.
+- Página de origen: https://www.pexels.com/video/charging-an-electric-car-4817952/
+
+ACTUALIZACIÓN FINAL
+-------------------
+- Eliminado por completo el mensaje técnico visible que aparecía sobre el hero.
+- Pestaña de validación más grande y más visible.
+- Encuesta contextualizada como validación del prototipo para Innova Sostenible 2026.
+- Nueva sección de impacto con ODS 7, 9, 11, 12 y 13.
+- Franja final del Torneo Innova Sostenible 2026 con acceso secundario a la encuesta.
+
+
+ENCUESTA ACTUAL · 9 PREGUNTAS CERRADAS + 1 ABIERTA
+--------------------------------------------------
+1. Claridad de qué hace FÓRTISI.
+2. Servicios recordados.
+3. Utilidad del simulador de ahorro.
+4. Claridad de los resultados del simulador.
+5. Utilidad de la orientación sobre el KIT.
+6. Capacidad de identificar la solución adecuada.
+7. Intención de solicitar diagnóstico o cotización.
+8. Situación actual respecto a movilidad y energía.
+9. Elemento que más ayudó a entender la propuesta.
+10. Mejora sugerida por el usuario (respuesta abierta y opcional).
+
+No se pregunta ciudad o país: esos datos conviene obtenerlos mediante analítica web.
+
+PRECIOS FINALES Y AHORRO
+------------------------
+- Los precios comerciales visibles incluyen IVA.
+- INICIA y CONECTA: ahorro explicado frente a carga pública AC/DC.
+- GENERA: se incorpora un caso referencial de retorno simple:
+  $75.700 -> $3.500 = $72.200/mes = $866.400/año.
+  Sobre $7.290.000 netos, retorno simple referencial ~8,4 años.
+- ALMACENA y CASA FÓRTISI: no se promete un plazo único de retorno porque
+  depende fuertemente del perfil horario, batería, consumo, radiación y tarifas.
+
+MEJORA COMERCIAL DE BENEFICIOS
+------------------------------
+- Precios expresados como valores finales "Desde $X IVA incluido".
+- Nueva sección "¿Por qué cargar tu auto en casa?".
+- Beneficios explícitos: comodidad, seguridad, ahorro y evolución.
+- Ahorro de carga comparado con tarifa residencial BT1 vs carga pública AC/DC.
+- GENERA muestra ahorro referencial del caso FÓRTISI:
+  $75.700 -> $3.500 = $72.200/mes = $866.400/año.
+- Retorno simple referencial GENERA: ~8,4 años sobre el valor neto antes de IVA.
+
+SIMULADORES DE AHORRO
+---------------------
+Se incorporaron dos simuladores:
+1. Carga de vehículo: usa capacidad de batería, porcentaje de carga y cargas mensuales.
+   - Tarifa BT1 referencial inicial: $210,57/kWh IVA incluido, basada en pliego Enel agosto 2026.
+   - Carga pública: tarifas Copec Voltex vigentes consultadas agosto 2026.
+   - Gasolina: el usuario ingresa el precio actual desde CNE Bencina en Línea para evitar dejar un precio fijo obsoleto.
+2. Solar: usa cuenta mensual, reducción estimada de compra a la red e inversión neta antes de IVA.
+   - Calcula ahorro mensual/anual y retorno simple.
+Los resultados son referenciales y no constituyen cotización ni garantía.
+
+FOCO TÉCNICO MONOFÁSICO
+-----------------------
+FÓRTISI queda definido inicialmente para instalaciones residenciales con suministro eléctrico monofásico.
+El diagnóstico pregunta si el usuario conoce su tipo de suministro.
+- Monofásico: continúa normalmente.
+- No lo sabe: continúa y se verifica en visita técnica.
+- Trifásico: deriva a diagnóstico técnico.
+
+PERFIL DE CONSUMO DINÁMICO
+--------------------------
+El simulador solar ahora clasifica el consumo mensual:
+- Bajo: menos de $50.000/mes
+- Medio: $50.000 a $99.999/mes
+- Alto: $100.000 a $179.999/mes
+- Muy alto: $180.000 o más
+
+El ahorro anual se muestra primero.
+La recuperación estimada se calcula dinámicamente a partir de:
+inversión neta antes de IVA / ahorro anual estimado.
+El resultado se muestra en meses y en lenguaje natural (ej. 1 año y 6 meses).

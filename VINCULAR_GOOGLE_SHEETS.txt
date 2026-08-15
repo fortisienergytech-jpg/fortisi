@@ -1,0 +1,35 @@
+FÓRTISI · GOOGLE FORMS Y DASHBOARD CONECTADOS
+
+ESTADO FINAL
+- La encuesta oficial de Google Forms está incrustada en index.html.
+- Las respuestas se almacenan directamente en la Google Sheet vinculada al formulario.
+- El Apps Script publicado entrega una copia de solo lectura al dashboard.
+- La URL /exec ya está configurada en assets/js/config.js.
+
+URL DEL CONECTOR
+https://script.google.com/macros/s/AKfycbx1GfmhUkD6sMd0XT64RbYaT6pfiqAG47ecCCXq04IBNkJjwV56cl_fzFjzJuRYNGyDDw/exec
+
+PRUEBA DEL CONECTOR
+Abre la URL anterior agregando ?action=list al final. Debe responder:
+{"ok":true,"rows":[...]}
+
+PRUEBA EN LA WEB
+1. Abre la web y pulsa “Evalúa este prototipo”.
+2. El Google Forms debe abrirse dentro de la página.
+3. Haz 5 clics seguidos en el logo FÓRTISI del encabezado.
+4. Ingresa la clave privada indicada en LEEME.txt.
+5. Pulsa Actualizar: debe mostrar las respuestas de Google Forms.
+
+AL ACTUALIZAR EL HTML
+No elimines estos componentes:
+- el iframe del Google Forms en index.html;
+- surveyEndpoint en assets/js/config.js;
+- el bloque de dashboard en index.html y assets/js/app.js.
+
+Cambiar el diseño o volver a subir la web a Vercel no elimina las respuestas.
+Los datos permanecen en Google Forms y en su Google Sheet vinculada.
+
+IMPORTANTE
+El dashboard oculto es adecuado para la demostración del prototipo, pero su clave
+está en el código del navegador y no constituye seguridad de servidor. La encuesta
+actual no solicita nombre, correo ni otros datos personales.

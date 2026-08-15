@@ -1,3 +1,5 @@
+
+<!-- FÓRTISI · Prototipo final -->
 <!DOCTYPE html>
 
 <html lang="es-CL"><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
@@ -25,7 +27,7 @@
     "name":"FÓRTISI",
     "url":"https://fortisi.cl/",
     "email":"contacto@fortisi.cl",
-    "telephone":"+56987654321",
+    "telephone":"+56988221485",
     "description":"Empresa EnergyTech que integra carga residencial, energía solar, almacenamiento y gestión energética del hogar.",
     "areaServed":{"@type":"AdministrativeArea","name":"Región Metropolitana, Chile"},
     "founder":[
@@ -34,8 +36,9 @@
     ]
   }
   </script>
-<link href="assets/css/styles.css?v=6.3" rel="stylesheet"/>
+<link href="assets/css/styles.css?v=6.4" rel="stylesheet"/>
 
+<!-- Interfaz FÓRTISI -->
 <style id="fortisi-v64-solution-premium">
 .solution-premium{background:#fff;color:#0c1d16;padding:clamp(72px,8vw,132px) 0 0;overflow:hidden}
 .solution-premium__wrap{max-width:1540px;margin:0 auto}
@@ -1627,7 +1630,17 @@ section .container .wrap{
   fill:#174b39!important;
   stroke:none!important;
 }
-</style></head>
+</style>
+<style id="fortisi-ods-compact">
+#ods .ods-heading{max-width:760px;margin-bottom:28px!important}
+#ods .ods-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px!important}
+#ods .ods-card{padding:22px!important;min-height:0!important}
+#ods .ods-card h3{margin:10px 0 8px!important;font-size:clamp(18px,1.4vw,22px)!important}
+#ods .ods-card p{margin:0!important;line-height:1.55!important}
+@media(max-width:980px){#ods .ods-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){#ods .ods-grid{grid-template-columns:1fr}}
+</style>
+</head>
 <body class="fortisi-scale-90">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <header class="site-header is-scrolled" data-header="">
@@ -1647,11 +1660,11 @@ section .container .wrap{
 <main id="contenido">
 <section aria-labelledby="hero-title" class="hero" id="inicio">
 <picture class="hero__fallback">
-<source media="(max-width: 720px)" srcset="https://fortisi.cl/assets/images/hero-mobile.webp"/>
+<source media="(max-width: 720px)" srcset="assets/images/hero-ev-charging.jpg"/>
 <img alt="Casa contemporánea con paneles solares y un vehículo eléctrico conectado" height="900" src="assets/images/hero.webp" width="1600"/>
 </picture>
-<video aria-hidden="true" autoplay="" class="hero__video" data-hero-video="" loop="" muted="" playsinline="" poster="assets/images/hero.webp" preload="auto">
-<source src="https://fortisi.cl/assets/video/solar-roofs.mp4" type="video/mp4"/>
+<video aria-hidden="true" autoplay="" class="hero__video" data-hero-video="" loop="" muted="" playsinline="" poster="assets/images/hero-ev-charging.jpg" preload="auto">
+<source src="assets/video/ev-home-charging.mp4" type="video/mp4"/>
 </video>
 <div aria-hidden="true" class="hero__overlay"></div>
 <div class="shell hero__content">
@@ -1805,7 +1818,7 @@ section .container .wrap{
 </div>
 <div aria-label="Etapas FÓRTISI" class="kit-stage-nav" role="tablist">
 <button aria-selected="true" class="kit-stage-nav__item is-active" data-kit-tab="inicia" type="button"><span>01</span><strong>Inicia</strong><small>Seguridad</small></button>
-<button aria-selected="false" class="kit-stage-nav__item" data-kit-tab="conecta" type="button"><span>02</span><strong>Carga</strong><small>Comodidad</small></button>
+<button aria-selected="false" class="kit-stage-nav__item" data-kit-tab="conecta" type="button"><span>02</span><strong>Conecta</strong><small>Comodidad</small></button>
 <button aria-selected="false" class="kit-stage-nav__item" data-kit-tab="genera" type="button"><span>03</span><strong>Genera</strong><small>Generación</small></button>
 <button aria-selected="false" class="kit-stage-nav__item" data-kit-tab="almacena" type="button"><span>04</span><strong>Almacena</strong><small>Control</small></button>
 <button aria-selected="false" class="kit-stage-nav__item" data-kit-tab="casa" type="button"><span>05</span><strong>Casa FÓRTISI</strong><small>Integración</small></button>
@@ -1816,7 +1829,7 @@ section .container .wrap{
 </div>
 <div class="service-card__body">
 <div class="service-card__top">
-<span>01</span><p>INICIA</p><strong>Desde $789.900 + IVA</strong>
+<span>01</span><p>INICIA</p><strong>Desde $940.000 IVA incluido</strong>
 </div>
 <h3>Instalamos y certificamos tu cargador</h3>
 <p class="service-card__lead">Para quien ya tiene su cargador y necesita una instalación segura, documentada y certificada.</p>
@@ -1863,7 +1876,7 @@ section .container .wrap{
 </div>
 <div class="service-card__body">
 <div class="service-card__top">
-<span>02</span><p>CARGA</p><strong>Desde $1.929.000 + IVA</strong>
+<span>02</span><p>CONECTA</p><strong>Desde $2.300.000 IVA incluido</strong>
 </div>
 <h3>Equipo, instalación y certificación</h3>
 <p class="service-card__lead">Una solución completa con cargador incluido y un solo responsable técnico.</p>
@@ -1875,7 +1888,7 @@ section .container .wrap{
 </div>
 <div class="service-card__footer">
 <button aria-expanded="false" class="service-card__expand" type="button">
-              Conocer CARGA <span aria-hidden="true">⌄</span>
+              Conocer CONECTA <span aria-hidden="true">⌄</span>
 </button>
 </div>
 </div>
@@ -1910,7 +1923,7 @@ section .container .wrap{
 </div>
 <div class="service-card__body">
 <div class="service-card__top">
-<span>03</span><p>GENERA</p><strong>Desde $7.290.000 + IVA</strong>
+<span>03</span><p>GENERA</p><strong>Desde $8.690.000 IVA incluido</strong>
 </div>
 <h3>Genera energía para compensar la carga de tu vehículo</h3>
 <p class="service-card__lead">Durante el día produces energía solar y valorizas los excedentes mediante Netbilling; esa compensación ayuda a reducir el costo de la energía que usarás al cargar tu vehículo, normalmente de noche.</p>
@@ -1957,7 +1970,7 @@ section .container .wrap{
 </div>
 <div class="service-card__body">
 <div class="service-card__top">
-<span>04</span><p>ALMACENA</p><strong>Desde $9.890.000 + IVA</strong>
+<span>04</span><p>ALMACENA</p><strong>Desde $11.790.000 IVA incluido</strong>
 </div>
 <h3>Genera de día. Carga tu vehículo con energía almacenada.</h3>
 <p class="service-card__lead">Incorpora batería e inversor híbrido para almacenar energía solar durante el día y utilizarla posteriormente, especialmente para apoyar la carga nocturna del vehículo.</p>
@@ -2005,7 +2018,7 @@ section .container .wrap{
 </div>
 <div class="service-card__body">
 <div class="service-card__top">
-<span>05</span><p>CASA FÓRTISI</p><strong>Desde $12.490.000 + IVA</strong>
+<span>05</span><p>CASA FÓRTISI</p><strong>Desde $14.890.000 IVA incluido</strong>
 </div>
 <h3>Integra la energía de toda tu casa</h3>
 <p class="service-card__lead">Integra generación solar, almacenamiento de mayor capacidad, carga residencial y consumos del hogar para reducir al mínimo posible la energía comprada a la red y gestionar vivienda y movilidad como un solo ecosistema.</p>
@@ -2048,7 +2061,7 @@ section .container .wrap{
 </div>
 </article>
 </div>
-<p class="legal-note">Valores referenciales más IVA. El valor final depende de las condiciones eléctricas del hogar, distancia de instalación, equipos seleccionados, certificaciones y adecuaciones requeridas. La visita técnica permite entregar una propuesta ajustada a cada caso.</p>
+<p class="legal-note">Valores referenciales con IVA incluido. El valor final depende de las condiciones eléctricas del hogar, distancia de instalación, equipos seleccionados, certificaciones y adecuaciones requeridas. La visita técnica permite entregar una propuesta ajustada a cada caso.</p>
 </div>
 </section><section aria-labelledby="casa-fortisi-title" class="casa-fortisi-experience" data-casa-fortisi="" data-stage="1" id="casa-fortisi">
 <div class="shell casa-fortisi-shell">
@@ -2242,7 +2255,7 @@ section .container .wrap{
 <svg role="img" viewbox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5zM8 9h8m-8 3h5"></path></svg>
 </span>
 <strong>Ayúdanos a mejorar</strong>
-<small>Evalúa el prototipo en cerca de un minuto.</small>
+<small>Evalúa el prototipo en cerca de 2 minutos.</small>
 </a>
 </div>
 </div>
@@ -2755,39 +2768,29 @@ section .container .wrap{
 <div class="shell">
 <div class="section-heading ods-heading">
 <p class="eyebrow">Impacto y sostenibilidad</p>
-<h2 id="ods-title">Nuestro compromiso con el desarrollo sostenible.</h2>
-<p>FÓRTISI integra infraestructura residencial, electromovilidad, energía limpia, mantención y gestión responsable de equipos en un mismo camino.</p>
+<h2 id="ods-title">Una evolución energética con impacto positivo.</h2>
+<p>FÓRTISI acompaña la transición del hogar hacia una energía más segura, eficiente y responsable.</p>
 </div>
 <div class="ods-grid">
 <article class="ods-card">
 <span class="ods-number">ODS 7</span>
-<h3>Energía asequible y no contaminante</h3>
-<p>Facilitamos la transición hacia energía solar residencial, almacenamiento y carga domiciliaria, permitiendo que cada hogar avance por etapas.</p>
-<strong>El cliente empieza donde puede y crece cuando quiere.</strong>
-</article>
-<article class="ods-card">
-<span class="ods-number">ODS 9</span>
-<h3>Industria, innovación e infraestructura</h3>
-<p>Desarrollamos infraestructura residencial para acompañar el crecimiento de la electromovilidad con instalaciones seguras, certificadas y preparadas para evolucionar.</p>
-<strong>La electromovilidad avanza. La infraestructura también debe hacerlo.</strong>
+<h3>Energía limpia</h3>
+<p>Carga residencial, generación solar y almacenamiento que pueden incorporarse por etapas.</p>
 </article>
 <article class="ods-card">
 <span class="ods-number">ODS 11</span>
-<h3>Ciudades y comunidades sostenibles</h3>
-<p>Una vivienda preparada para cargar un vehículo eléctrico y evolucionar hacia generación propia contribuye a comunidades más sostenibles.</p>
-<strong>Para el cliente puede ser una consecuencia; para FÓRTISI es un compromiso.</strong>
+<h3>Hogares preparados</h3>
+<p>Infraestructura residencial que acompaña el crecimiento de la electromovilidad.</p>
 </article>
 <article class="ods-card">
 <span class="ods-number">ODS 12</span>
-<h3>Producción y consumo responsables</h3>
-<p>Extendemos la mirada más allá de la instalación mediante mantención, prolongación de vida útil y orientación para la gestión responsable de equipos al final de su ciclo.</p>
-<strong>Pensamos en todo el ciclo de vida de la solución.</strong>
+<h3>Consumo responsable</h3>
+<p>Mantención y orientación para gestionar responsablemente los equipos al final de su vida útil.</p>
 </article>
 <article class="ods-card">
 <span class="ods-number">ODS 13</span>
-<h3>Acción por el clima</h3>
-<p>Al integrar electromovilidad, energía solar y almacenamiento, ayudamos a reducir progresivamente la dependencia de combustibles fósiles y las emisiones asociadas.</p>
-<strong>Ahorras. Reduces emisiones. Generas energía limpia.</strong>
+<h3>Acción climática</h3>
+<p>Menor dependencia de combustibles fósiles mediante electromovilidad y energía renovable.</p>
 </article>
 </div>
 </div>
@@ -2892,7 +2895,7 @@ section .container .wrap{
 <p>Un técnico eléctrico certificado SEC evalúa tu instalación y entrega un informe con el camino recomendado. Si avanzas con FÓRTISI, el costo de la visita se descuenta del proyecto.</p>
 <address>
 <a href="mailto:contacto@fortisi.cl"><small>Correo</small>contacto@fortisi.cl</a>
-<a href="tel:+56987654321"><small>Teléfono</small>+56 9 8765 4321</a>
+<a href="tel:+56988221485"><small>Teléfono</small>+56 9 8822 1485</a>
 <p><small>Cobertura</small>Santiago y comunas aledañas</p>
 <p><small>Horario</small>Lun–Vie, 9:00–18:00</p>
 </address>
@@ -2970,7 +2973,7 @@ section .container .wrap{
 <h3>Torneo Innova Sostenible 2026</h3>
 <p><strong>FÓRTISI fue seleccionado entre los 15 proyectos finalistas del Torneo Innova Sostenible 2026</strong>, iniciativa impulsada por <strong>Duoc UC, Santander X y Hub Providencia</strong>.</p>
 <p>Hoy continuamos validando nuestro prototipo para seguir mejorando la experiencia y la propuesta de valor antes de la etapa final.</p>
-<p class="tournament-strip__cta-copy"><strong>Tu opinión nos ayudará a construir una mejor solución para la electromovilidad residencial.</strong><br/>Para responder la encuesta de 1 minuto, haz clic en la pestaña verde <strong>“Ayúdanos a mejorar”</strong>.</p>
+<p class="tournament-strip__cta-copy"><strong>Tu opinión nos ayudará a construir una mejor solución para la electromovilidad residencial.</strong><br/>Para responder la encuesta de 2 minutos, haz clic en la pestaña verde <strong>“Evalúa este prototipo”</strong>.</p>
 <div class="tournament-strip__institutions">Duoc UC · Santander X · Hub Providencia</div>
 </div>
 </div>
@@ -2980,14 +2983,27 @@ section .container .wrap{
 <p>Prototipo de negocio desarrollado para Innova Sostenible 2026. Valores y disponibilidad sujetos a diagnóstico técnico y validación comercial.</p>
 <p>Las soluciones FÓRTISI están orientadas inicialmente a instalaciones residenciales con suministro eléctrico monofásico. La factibilidad técnica y la solución definitiva se determinan mediante diagnóstico técnico.</p></div>
 </footer>
-<a aria-label="Responder encuesta de validación de FÓRTISI en Google Forms" class="prototype-survey-tab" href="https://docs.google.com/forms/d/e/1FAIpQLSfMWoWdtjEDJRrS_YZvXI6Doc6IJugBesQYfdAhmcDTpxes5w/viewform?usp=header" rel="noopener noreferrer" target="_blank">AYÚDANOS A MEJORAR · ENCUESTA 1 MIN</a><div class="prototype-modal" data-survey-modal="" hidden="">
+<a aria-label="Evaluar el prototipo FÓRTISI en una encuesta de 2 minutos" class="prototype-survey-tab" data-survey-open="" href="https://docs.google.com/forms/d/e/1FAIpQLSfMWoWdtjEDJRrS_YZvXI6Doc6IJugBesQYfdAhmcDTpxes5w/viewform?usp=header" rel="noopener noreferrer" target="_blank">EVALÚA ESTE PROTOTIPO · 2 MIN</a><div class="prototype-modal" data-survey-modal="" hidden="">
 <div class="prototype-modal__backdrop" data-survey-close=""></div>
 <section aria-labelledby="survey-title" aria-modal="true" class="prototype-modal__dialog" role="dialog">
 <button aria-label="Cerrar encuesta" class="prototype-modal__close" data-survey-close="" type="button">×</button>
 <p class="eyebrow">Validación del prototipo</p>
 <div class="survey-prototype-badge">🧪 PROTOTIPO EN VALIDACIÓN</div><h2 id="survey-title">Ayúdanos a mejorar FÓRTISI</h2>
-<p class="prototype-modal__lead">Este prototipo forma parte del proceso de validación de FÓRTISI para el Torneo Innova Sostenible 2026. Queremos saber si la página se entiende, si el simulador de ahorro resulta útil y si la recomendación de KIT te ayuda a identificar una solución para tu hogar. Son 9 preguntas y toma cerca de 1 minuto.</p>
-<form class="prototype-survey-form" data-survey-form="">
+<p class="prototype-modal__lead">Este prototipo forma parte del proceso de validación de FÓRTISI para el Torneo Innova Sostenible 2026. Queremos saber si la página se entiende, si el simulador de ahorro resulta útil y si la recomendación de KIT te ayuda a identificar una solución para tu hogar. Son 10 preguntas y toma cerca de 2 minutos.</p>
+<div class="validation-iteration" aria-label="Iteración de la validación y del prototipo">
+<h3>Validamos, mejoramos y volvemos a validar</h3>
+<div class="validation-iteration__steps">
+<article><span>01</span><strong>Primera validación</strong><p>Medimos comprensión, utilidad e intención de contacto y recogimos comentarios directos.</p></article>
+<article><span>02</span><strong>Aprendizajes</strong><p>Los usuarios pidieron precios más claros, cálculo de ahorro, respuestas frecuentes y contacto directo.</p></article>
+<article><span>03</span><strong>Prototipo iterado</strong><p>Incorporamos precios finales, simuladores, orientación por KIT, FAQ y acceso a WhatsApp.</p></article>
+<article><span>04</span><strong>Nueva validación</strong><p>Actualizamos la encuesta a 10 preguntas y añadimos una pregunta cualitativa abierta.</p></article>
+</div>
+</div>
+<div class="embedded-google-form">
+<iframe loading="lazy" src="https://docs.google.com/forms/d/e/1FAIpQLSfMWoWdtjEDJRrS_YZvXI6Doc6IJugBesQYfdAhmcDTpxes5w/viewform?embedded=true" title="Encuesta de validación del prototipo FÓRTISI">Cargando encuesta…</iframe>
+</div>
+<p class="embedded-google-form__fallback">Si la encuesta no carga, <a href="https://docs.google.com/forms/d/e/1FAIpQLSfMWoWdtjEDJRrS_YZvXI6Doc6IJugBesQYfdAhmcDTpxes5w/viewform?usp=header" rel="noopener noreferrer" target="_blank">ábrela directamente en Google Forms</a>.</p>
+<form class="prototype-survey-form" data-survey-form="" hidden="">
 <fieldset class="survey-field survey-field--emotion">
 <legend>1. ¿Qué sensación te dejó esta experiencia?</legend>
 <div class="survey-options">
@@ -3093,34 +3109,107 @@ section .container .wrap{
 </section>
 </div><div class="prototype-admin-panel" data-admin-panel="" hidden="">
 <div class="prototype-modal__backdrop" data-admin-close=""></div>
-<section aria-labelledby="admin-title" aria-modal="true" class="prototype-admin-panel__box" role="dialog">
+<section aria-labelledby="admin-title" aria-modal="true" class="prototype-admin-panel__box admin-dashboard" role="dialog">
 <button aria-label="Cerrar dashboard" class="prototype-modal__close" data-admin-close="" type="button">×</button>
-<p class="eyebrow">Validación del prototipo</p>
+<header class="admin-dashboard__header">
+<div>
+<p class="eyebrow">Validación del prototipo · Panel privado</p>
 <h2 id="admin-title">Dashboard FÓRTISI</h2>
-<p class="admin-explainer">Panel privado de validación. Al conectar Google Sheets, las respuestas se almacenan en la nube y este dashboard las consulta directamente desde la misma fuente. El navegador conserva además un respaldo local.</p>
-<div class="admin-metrics">
-<article><span>Encuestas</span><strong data-admin-total="">0</strong></article>
-<article><span>Experiencia positiva</span><strong data-admin-positive="">—</strong></article>
-<article><span>Usó simulador de ahorro</span><strong data-admin-simulator="">—</strong></article>
-<article><span>Intención de diagnóstico</span><strong data-admin-contact="">—</strong></article>
-<article><span>Contactaría a FÓRTISI</span><strong data-admin-fortisi-contact="">—</strong></article>
+<p class="admin-explainer">Una lectura ejecutiva de lo que funciona, lo que debemos mejorar y la evidencia completa detrás de la validación.</p>
 </div>
-<div class="admin-section"><h3>1. Sensación que dejó la experiencia</h3><div class="admin-bars" data-admin-q1=""></div></div>
-<div class="admin-section"><h3>2. Servicios que recuerda que ofrece FÓRTISI</h3><div class="admin-bars" data-admin-q2=""></div></div>
-<div class="admin-section"><h3>3. Utilidad del módulo de ahorro</h3><div class="admin-bars" data-admin-q3=""></div></div>
-<div class="admin-section"><h3>4. Claridad de los resultados del simulador</h3><div class="admin-bars" data-admin-q4=""></div></div>
-<div class="admin-section"><h3>5. Utilidad de la orientación sobre el KIT</h3><div class="admin-bars" data-admin-q5=""></div></div>
-<div class="admin-section"><h3>6. Capacidad de identificar la solución adecuada</h3><div class="admin-bars" data-admin-q6=""></div></div>
-<div class="admin-section"><h3>7. Probabilidad de solicitar diagnóstico o cotización</h3><div class="admin-bars" data-admin-q7=""></div></div>
-<div class="admin-section"><h3>8. Situación actual respecto a movilidad y energía</h3><div class="admin-bars" data-admin-q8=""></div></div>
-<div class="admin-section"><h3>9. ¿Contactaría a FÓRTISI si necesitara alguno de sus servicios?</h3><div class="admin-bars" data-admin-q9=""></div></div>
-<div class="admin-section"><h3>Detalle de respuestas</h3><div class="admin-table-wrap" data-admin-table=""></div></div>
-<div class="admin-buttons">
-<button class="button button--primary" data-admin-refresh="" type="button">Actualizar</button>
-<button class="button button--dark" data-admin-export="" type="button">Exportar CSV</button>
+<div class="admin-dashboard__status"><span class="admin-status-dot"></span><span><strong data-admin-total-top>0</strong> respuestas reales</span></div>
+</header>
+<div class="admin-dashboard__workspace">
+<aside class="admin-sidebar" aria-label="Panel de control del dashboard">
+<div class="admin-sidebar__brand"><span class="admin-sidebar__mark">F</span><div><strong>Panel de control</strong><small>Validación FÓRTISI</small></div></div>
+<nav class="admin-tabs" aria-label="Vistas del dashboard">
+<button class="admin-tab is-active" data-admin-tab="summary" type="button"><span>✨</span> Resumen</button>
+<button class="admin-tab" data-admin-jump="results" type="button"><span>📈</span> Resultados por pregunta</button>
+<button class="admin-tab" data-admin-jump="comments" type="button"><span>💬</span> Comentarios</button>
+<button class="admin-tab" data-admin-tab="raw" type="button"><span>📋</span> Respuestas completas</button>
+</nav>
+<div class="admin-sidebar__actions">
+<button type="button" data-admin-refresh><span>↻</span> Actualizar datos</button>
+<button type="button" data-admin-export><span>↓</span> Exportar CSV</button>
+</div>
+</aside>
+<main class="admin-dashboard__content">
+<div class="admin-tab-panel is-active" data-admin-panel-view="summary" role="tabpanel">
+<section class="admin-validation-hero">
+<div>
+<span class="admin-validation-hero__kicker">EVIDENCIA PRINCIPAL</span>
+<h3>Lo pusimos a prueba con <strong><span data-admin-total>0</span> potenciales clientes.</strong></h3>
+<p>Estos tres indicadores muestran si el prototipo orienta, se entiende y genera interés.</p>
+</div>
+<div class="admin-validation-hero__seal" aria-hidden="true">✓</div>
+</section>
+
+<div class="admin-key-metrics" aria-label="Indicadores principales de validación">
+<article class="admin-key-card admin-key-card--orientation">
+<div class="admin-key-card__icon">🧭</div><div class="admin-key-card__meta">Validación 01 · Pregunta 5</div>
+<strong data-admin-orientation>—</strong><h3>Orientación</h3><p>consideró útil o muy útil la orientación para elegir un KIT.</p>
+</article>
+<article class="admin-key-card admin-key-card--clarity">
+<div class="admin-key-card__icon">💡</div><div class="admin-key-card__meta">Validación 02 · Pregunta 6</div>
+<strong data-admin-solution>—</strong><h3>Claridad</h3><p>identificó claramente cuál solución se ajustaba mejor a su situación.</p>
+</article>
+<article class="admin-key-card admin-key-card--interest">
+<div class="admin-key-card__icon">🤝</div><div class="admin-key-card__meta">Validación 03 · Pregunta 7</div>
+<strong data-admin-contact>—</strong><h3>Interés</h3><p>señaló que probablemente o muy probablemente solicitaría diagnóstico o cotización.</p>
+</article>
+</div>
+
+<div class="admin-section-heading" id="admin-results">
+<div><span class="admin-section-heading__eyebrow">LECTURA COMPLEMENTARIA</span><h3>Qué nos dijeron las demás respuestas</h3></div>
+
+</div>
+
+<div class="admin-question-grid">
+<article class="admin-question-card admin-q--1"><header><span class="admin-question-card__icon">😊</span><div><small>Pregunta 1</small><h4>Experiencia general</h4></div></header><p class="admin-question-card__desc">¿Qué sensación dejó navegar el prototipo?</p><div class="admin-bars" data-admin-q1></div></article>
+<article class="admin-question-card admin-q--2"><header><span class="admin-question-card__icon">🧠</span><div><small>Pregunta 2</small><h4>Recordación de servicios</h4></div></header><p class="admin-question-card__desc">¿Qué servicios de FÓRTISI quedaron en la memoria?</p><div class="admin-bars" data-admin-q2></div></article>
+<article class="admin-question-card admin-q--3"><header><span class="admin-question-card__icon">💰</span><div><small>Pregunta 3</small><h4>Utilidad del ahorro</h4></div></header><p class="admin-question-card__desc">¿El módulo de ahorro aportó valor a la experiencia?</p><div class="admin-bars" data-admin-q3></div></article>
+<article class="admin-question-card admin-q--4"><header><span class="admin-question-card__icon">📊</span><div><small>Pregunta 4</small><h4>Claridad del simulador</h4></div></header><p class="admin-question-card__desc">¿Los resultados del simulador se entendieron fácilmente?</p><div class="admin-bars" data-admin-q4></div></article>
+<article class="admin-question-card admin-q--5"><header><span class="admin-question-card__icon">🧭</span><div><small>Pregunta 5</small><h4>Orientación del KIT</h4></div></header><p class="admin-question-card__desc">¿La recomendación ayudó a elegir un camino?</p><div class="admin-bars" data-admin-q5></div></article>
+<article class="admin-question-card admin-q--6"><header><span class="admin-question-card__icon">🎯</span><div><small>Pregunta 6</small><h4>Identificación de solución</h4></div></header><p class="admin-question-card__desc">¿El usuario pudo reconocer la solución adecuada?</p><div class="admin-bars" data-admin-q6></div></article>
+<article class="admin-question-card admin-q--7"><header><span class="admin-question-card__icon">🤝</span><div><small>Pregunta 7</small><h4>Intención de contacto</h4></div></header><p class="admin-question-card__desc">¿La propuesta genera intención real de avanzar?</p><div class="admin-bars" data-admin-q7></div></article>
+<article class="admin-question-card admin-q--8"><header><span class="admin-question-card__icon">🚗</span><div><small>Pregunta 8</small><h4>Situación del usuario</h4></div></header><p class="admin-question-card__desc">¿Desde qué contexto de movilidad o energía nos visita?</p><div class="admin-bars" data-admin-q8></div></article>
+<article class="admin-question-card admin-q--9"><header><span class="admin-question-card__icon">✨</span><div><small>Pregunta 9</small><h4>Elemento más útil</h4></div></header><p class="admin-question-card__desc">¿Qué parte del prototipo ayudó más a entender FÓRTISI?</p><div class="admin-bars" data-admin-q9></div></article>
+</div>
+
+<section class="admin-comments-section" id="admin-comments">
+<div class="admin-comments-section__head"><div><span class="admin-comments-section__icon">💬</span><div><small>PREGUNTA 10 · VOZ DEL USUARIO</small><h3>Lo que nos dijeron</h3></div></div></div>
+<p class="admin-comments-section__intro">Comentarios abiertos sobre qué mejorar.</p>
+<div class="admin-comments-carousel" data-admin-q10>
+<div class="admin-empty">Aún no hay comentarios cualitativos.</div>
+</div>
+<div class="admin-carousel-controls" data-admin-carousel-controls hidden>
+<button type="button" data-admin-comment-prev aria-label="Comentario anterior">←</button><span data-admin-comment-counter>0 / 0</span><button type="button" data-admin-comment-next aria-label="Comentario siguiente">→</button>
 </div>
 </section>
-</div><script src="assets/js/config.js"></script><script defer="" src="assets/js/app.js?v=6.8"></script><script>
+
+<div class="validation-iteration validation-iteration--admin" aria-label="Trazabilidad de la iteración">
+<h3>Del aprendizaje a la revalidación</h3>
+<div class="validation-iteration__steps">
+<article><span>01</span><strong>Medir</strong><p>Primera encuesta y conversaciones con usuarios.</p></article>
+<article><span>02</span><strong>Aprender</strong><p>Detectamos oportunidades en claridad, ahorro y acompañamiento.</p></article>
+<article><span>03</span><strong>Mejorar</strong><p>Ajustamos propuesta, contenido y herramientas del prototipo.</p></article>
+<article><span>04</span><strong>Revalidar</strong><p>10 preguntas combinan evidencia cuantitativa y cualitativa.</p></article>
+</div>
+</div>
+</div>
+
+<div class="admin-tab-panel" data-admin-panel-view="raw" role="tabpanel" hidden>
+<div class="admin-raw-head">
+<div><span class="admin-section-heading__eyebrow">TRAZABILIDAD</span><h3>Respuestas completas</h3><p>Detalle fila por fila de las respuestas registradas.</p></div>
+<div class="admin-raw-count"><strong data-admin-total-raw>0</strong><span>encuestas</span></div>
+</div>
+<div class="admin-table-wrap" data-admin-table></div>
+</div>
+<footer class="admin-dashboard__footer"><p>Fuente: respuestas reales de la encuesta de validación FÓRTISI.</p></footer>
+</main>
+</div>
+</section>
+</div></div><script src="assets/js/config.js"></script><script defer="" src="assets/js/app.js?v=6.9"></script><script>
 (() => {
   const tabs = [...document.querySelectorAll('[data-kit-tab]')];
   const panels = [...document.querySelectorAll('[data-kit-panel]')];
@@ -3347,8 +3436,8 @@ section .container .wrap{
      [{label:'Comparar GENERA / ALMACENA',href:links.sim},{label:'Cargo de noche',prompt:'Cargo principalmente de noche'}]);
    if(S.charger===true) return R('<p>Como ya tienes cargador, <strong>INICIA</strong> podría ser tu punto de partida. Primero revisamos compatibilidad, tablero, protecciones y potencia disponible.</p>',
      [{label:'Ver INICIA',href:links.kits},{label:'Quiero sumar solar',prompt:'Después quiero agregar energía solar'}]);
-   if(S.charger===false) return R('<p>Si necesitas también el cargador, <strong>CARGA</strong> podría ser tu punto de partida. Podemos recomendar y suministrar un equipo compatible, instalarlo y gestionar la certificación correspondiente.</p>',
-     [{label:'Ver CARGA',href:links.kits},{label:'Hacer diagnóstico',href:links.diag}]);
+   if(S.charger===false) return R('<p>Si necesitas también el cargador, <strong>CONECTA</strong> podría ser tu punto de partida. Podemos recomendar y suministrar un equipo compatible, instalarlo y gestionar la certificación correspondiente.</p>',
+     [{label:'Ver CONECTA',href:links.kits},{label:'Hacer diagnóstico',href:links.diag}]);
    S.pending='charger';
    return R('<p>Para orientarte mejor necesito una sola cosa:</p><p><strong>¿Ya tienes el cargador de tu vehículo eléctrico?</strong></p>',
      [{label:'Sí, ya lo tengo',prompt:'Sí, ya tengo cargador'},{label:'No, necesito uno',prompt:'No, necesito cargador'}]);
@@ -3459,7 +3548,7 @@ section .container .wrap{
        [{label:'Ver ALMACENA',href:links.kits},{label:'Simular ahorro',href:links.sim}])}
    if(/casa fortisi/.test(t)){S.whole=true;S.solar=true;S.battery=true;return recommend()}
    if(/\binicia\b/.test(t))return R('<p><strong>INICIA</strong> está pensado para quien ya dispone de un cargador compatible y necesita resolver su instalación residencial, adecuaciones y certificación.</p>',[{label:'Ver INICIA',href:links.kits}]);
-   if(/\bcarga\b/.test(t)&&/kit|incluye|fortisi|solucion/.test(t))return R('<p><strong>CARGA</strong> suma la provisión del cargador cuando aún no lo tienes, además de la instalación y certificación correspondiente.</p>',[{label:'Ver CARGA',href:links.kits}]);
+   if(/\bcarga\b/.test(t)&&/kit|incluye|fortisi|solucion/.test(t))return R('<p><strong>CONECTA</strong> suma la provisión del cargador cuando aún no lo tienes, además de la instalación y certificación correspondiente.</p>',[{label:'Ver CONECTA',href:links.kits}]);
 
    // Certification and electrical conditions
    if(/certific.*cargador|certifican.*cargador/.test(t))
