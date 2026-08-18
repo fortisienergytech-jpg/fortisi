@@ -575,8 +575,31 @@ brand?.addEventListener("click",e=>{
   const pct=(n,d)=>d?Math.round(n*100/d)+"%":"—";
   const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
   function bars(el,data,total){
-    const entries=Object.entries(data);
-    el.innerHTML=entries.length?entries.map(([label,value])=>`<div class="admin-bar-row"><span>${esc(label)}</span><div class="admin-bar"><span style="width:${total?value*100/total:0}%"></span></div><strong>${pct(value,total)}</strong></div>`).join(""):'<div class="admin-empty">Sin datos todavía.</div>';
+    if(!el) return;
+
+  const entries=Object.entries(data || {});
+
+  el.innerHTML=entries.length
+
+    ? entries.map(([label,value])=>`
+
+        <div class="admin-bar-row">
+
+          <span>${esc(label)}</span>
+
+          <div class="admin-bar">
+
+            <span style="width:${total ? value*100/total : 0}%"></span>
+
+          </div>
+
+          <strong>${pct(value,total)}</strong>
+
+        </div>
+
+      `).join("")
+
+    : '<div class="admin-empty">Sin datos todavía.</div>';
   }
   async function renderAdmin(){
     const refreshBtn=document.querySelector("[data-admin-refresh]");
