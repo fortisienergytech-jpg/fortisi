@@ -226,7 +226,7 @@ form?.addEventListener("submit", async (event) => {
 
   const SURVEY_ENDPOINT = window.FORTISI_CONFIG?.surveyEndpoint?.trim?.() || "";
   const SURVEY_REMOTE_ENABLED = /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/.test(SURVEY_ENDPOINT);
-  const ADMIN_DEMO_PASSWORD = "GTIS2026";
+  const ADMIN_DEMO_PASSWORD = "0";
   const protoState = {
     diagnosticUsed:false,
     diagnosticCompleted:false,
