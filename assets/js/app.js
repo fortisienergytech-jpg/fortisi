@@ -525,6 +525,7 @@ async function saveSurvey(data){
   const loginForm=document.querySelector("[data-admin-login-form]");
   const loginStatus=document.querySelector("[data-admin-login-status]");
   const brand=document.querySelector(".site-header .brand");
+  if (adminLogin) adminLogin.hidden = true;
   let clickCount=0,timer=null;
 /*
   brand?.addEventListener("click",e=>{
