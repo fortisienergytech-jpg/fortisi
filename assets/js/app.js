@@ -538,13 +538,14 @@ async function saveSurvey(data){
     }
   });
 */
-  brand?.addEventListener("click",e=>{
+brand?.addEventListener("click",e=>{
+  e.preventDefault();
+
   clickCount++;
   clearTimeout(timer);
   timer=setTimeout(()=>clickCount=0,1800);
 
   if(clickCount>=5){
-    e.preventDefault();
     clickCount=0;
     adminLogin.hidden=true;
     adminPanel.hidden=false;
