@@ -683,7 +683,7 @@ brand?.addEventListener("click",e=>{
       return out;
     }
 
-    bars(documenxft.querySelector("[data-admin-q1]"),countSingle("clarity",q1Labels),n);
+    bars(document.querySelector("[data-admin-q1]"),countSingle("clarity",q1Labels),n);
 
     // Pregunta 2 permite respuesta múltiple: el porcentaje representa % de encuestados que recordó cada servicio.
     const rememberedCounts={};
