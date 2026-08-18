@@ -526,7 +526,7 @@ async function saveSurvey(data){
   const loginStatus=document.querySelector("[data-admin-login-status]");
   const brand=document.querySelector(".site-header .brand");
   let clickCount=0,timer=null;
-
+/*
   brand?.addEventListener("click",e=>{
     clickCount++;
     clearTimeout(timer);
@@ -537,7 +537,21 @@ async function saveSurvey(data){
       setTimeout(()=>document.querySelector("#admin-pass")?.focus(),30);
     }
   });
+*/
+  brand?.addEventListener("click",e=>{
+  clickCount++;
+  clearTimeout(timer);
+  timer=setTimeout(()=>clickCount=0,1800);
 
+  if(clickCount>=5){
+    e.preventDefault();
+    clickCount=0;
+    adminLogin.hidden=true;
+    adminPanel.hidden=false;
+    document.body.style.overflow="hidden";
+    renderAdmin();
+  }
+});
   function closeAdmin(){
     adminLogin.hidden=true;adminPanel.hidden=true;document.body.style.overflow="";
     loginForm?.reset();if(loginStatus) loginStatus.textContent="";
@@ -667,7 +681,7 @@ async function saveSurvey(data){
       return out;
     }
 
-    bars(document.querySelector("[data-admin-q1]"),countSingle("clarity",q1Labels),n);
+    bars(documenxft.querySelector("[data-admin-q1]"),countSingle("clarity",q1Labels),n);
 
     // Pregunta 2 permite respuesta múltiple: el porcentaje representa % de encuestados que recordó cada servicio.
     const rememberedCounts={};
@@ -775,13 +789,14 @@ async function saveSurvey(data){
       target?.scrollIntoView({behavior:"smooth",block:"start"});
     });
   });
-
+/*
   loginForm?.addEventListener("submit",e=>{
     e.preventDefault();
     const pass=document.querySelector("#admin-pass")?.value||"";
     if(pass!==ADMIN_DEMO_PASSWORD){loginStatus.textContent="Clave incorrecta.";return}
     adminLogin.hidden=true;adminPanel.hidden=false;renderAdmin();
   });
+  */
   document.querySelector("[data-admin-refresh]")?.addEventListener("click",renderAdmin);
   document.querySelector("[data-admin-export]")?.addEventListener("click",async()=>{
     let data=await rows();if(!data.length)return;
