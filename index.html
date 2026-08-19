@@ -2724,7 +2724,122 @@ p,h1,h2,h3,h4,h5,h6,li,a,span,strong,small{
   }
 }
 </style>
+<style id="fortisi-v736-mobile-visual-fix">
+/* =========================================================
+   FÓRTISI · V7.36
+   1) Corrige render Casa FÓRTISI en móvil
+   2) Recupera barras visuales del Dashboard móvil
+   ========================================================= */
 
+@media(max-width:720px){
+
+  /* =========================
+     CASA FÓRTISI
+     ========================= */
+
+  #casa-fortisi .casa-render-frame{
+    width:100%!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+  }
+
+  #casa-fortisi .casa-render-viewport{
+    position:relative!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    aspect-ratio:auto!important;
+    overflow:hidden!important;
+    background:transparent!important;
+  }
+
+  #casa-fortisi .casa-render-image{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    object-fit:contain!important;
+    object-position:center center!important;
+  }
+
+  #casa-fortisi .casa-energy-overlay{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:100%!important;
+    pointer-events:none!important;
+  }
+
+  /* =========================
+     DASHBOARD · BARRAS
+     ========================= */
+
+  .admin-bars{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:12px!important;
+    width:100%!important;
+  }
+
+  .admin-bar-row{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    gap:8px 12px!important;
+    align-items:end!important;
+    width:100%!important;
+  }
+
+  .admin-bar-row > span:first-child,
+  .admin-bar-label{
+    grid-column:1!important;
+    min-width:0!important;
+  }
+
+  .admin-bar-row > strong,
+  .admin-bar-value{
+    grid-column:2!important;
+    justify-self:end!important;
+    white-space:nowrap!important;
+  }
+
+  .admin-bar{
+    grid-column:1 / -1!important;
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    height:9px!important;
+    min-height:9px!important;
+    border-radius:999px!important;
+    overflow:hidden!important;
+    background:#e9efec!important;
+  }
+
+  .admin-bar > span,
+  .admin-bar-fill{
+    display:block!important;
+    height:100%!important;
+    min-height:9px!important;
+    border-radius:999px!important;
+    background:currentColor!important;
+  }
+
+  /* Colores suaves según tarjeta */
+  .admin-q--1 .admin-bar,
+  .admin-q--2 .admin-bar,
+  .admin-q--3 .admin-bar,
+  .admin-q--4 .admin-bar,
+  .admin-q--5 .admin-bar,
+  .admin-q--6 .admin-bar,
+  .admin-q--7 .admin-bar,
+  .admin-q--8 .admin-bar,
+  .admin-q--9 .admin-bar{
+    color:#168a5a!important;
+  }
+}
+</style>
 </head>
 <body class="fortisi-scale-90">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
