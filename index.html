@@ -3001,9 +3001,85 @@ p,h1,h2,h3,h4,h5,h6,li,a,span,strong,small{
 }
 </style>
 
-</head>
-<body class="fortisi-scale-90">
-  
+<style id="fortisi-v740-hero-mobile-final">
+@media(max-width:720px){
+
+  /* El contenido del hero comienza debajo del header fijo */
+  #inicio.hero{
+    padding-top:0!important;
+  }
+
+  #inicio.hero .hero__content{
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    transform:none!important;
+    width:calc(100% - 56px)!important;
+    margin:0 auto!important;
+    padding-top:155px!important;
+    padding-bottom:24px!important;
+  }
+
+  #inicio.hero .hero__content .eyebrow{
+    margin-top:0!important;
+  }
+
+  /* Indicadores inferiores: 3 columnas que realmente caben */
+  #inicio.hero .hero__rail{
+    position:relative!important;
+    width:calc(100% - 56px)!important;
+    margin:0 auto 28px!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    overflow:visible!important;
+  }
+
+  #inicio.hero .hero__rail > div{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+
+    padding:14px 5px!important;
+    text-align:center!important;
+    overflow:visible!important;
+  }
+
+  #inicio.hero .hero__rail strong{
+    display:block!important;
+    width:100%!important;
+    font-size:1.45rem!important;
+    line-height:1!important;
+    margin:0 0 7px!important;
+    text-align:center!important;
+  }
+
+  #inicio.hero .hero__rail span{
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+
+    font-size:.61rem!important;
+    line-height:1.25!important;
+    text-align:center!important;
+
+    white-space:normal!important;
+    overflow:visible!important;
+    overflow-wrap:break-word!important;
+    word-break:normal!important;
+  }
+}
+</style>
 </head>
 <body class="fortisi-scale-90">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
