@@ -2892,8 +2892,76 @@ p,h1,h2,h3,h4,h5,h6,li,a,span,strong,small{
 }
 </style>
 
-</head>
+</style>
 
+<style id="fortisi-v738-hero-mobile-fix">
+@media(max-width:720px){
+
+  #inicio.hero{
+    min-height:0!important;
+    height:auto!important;
+    padding:92px 0 34px!important;
+    overflow:hidden!important;
+  }
+
+  #inicio.hero .hero__content{
+    position:relative!important;
+    z-index:3!important;
+    padding-bottom:0!important;
+  }
+
+  #inicio.hero .hero__actions{
+    margin-bottom:22px!important;
+  }
+
+  #inicio.hero .hero__rail{
+    position:relative!important;
+    left:auto!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:calc(100% - 36px)!important;
+    max-width:none!important;
+    margin:0 auto!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:0!important;
+    border-top:1px solid rgba(255,255,255,.22)!important;
+    background:rgba(5,18,13,.34)!important;
+    backdrop-filter:blur(8px)!important;
+    -webkit-backdrop-filter:blur(8px)!important;
+  }
+
+  #inicio.hero .hero__rail > div{
+    min-width:0!important;
+    padding:14px 8px 12px!important;
+    text-align:center!important;
+  }
+
+  #inicio.hero .hero__rail > div + div{
+    border-left:1px solid rgba(255,255,255,.16)!important;
+  }
+
+  #inicio.hero .hero__rail strong{
+    display:block!important;
+    font-size:1.45rem!important;
+    line-height:1!important;
+    margin-bottom:5px!important;
+  }
+
+  #inicio.hero .hero__rail span{
+    display:block!important;
+    font-size:.72rem!important;
+    line-height:1.25!important;
+  }
+
+  #inicio.hero .media-toggle{
+    right:18px!important;
+    bottom:auto!important;
+    top:78px!important;
+  }
+}
+</style>
+  
 </head>
 <body class="fortisi-scale-90">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
