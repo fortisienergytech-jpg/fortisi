@@ -1,7 +1,7 @@
 {
   "name": "Patio Conecta",
   "short_name": "Patio Conecta",
-  "description": "Acceso instalable a Patio Conecta.",
+  "description": "Acceso de operadores Patio Conecta",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
