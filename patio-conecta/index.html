@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#5b168d">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Patio Conecta">
 <title>Patio Conecta</title>
 <link rel="manifest" href="./manifest.webmanifest">
@@ -12,122 +13,235 @@
 <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-32.png">
 <style>
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:#f6f3f8;color:#27172f}
+body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:#f6f3f8;color:#291632}
 .wrap{min-height:100vh;display:grid;place-items:center;padding:22px}
-.card{width:min(760px,100%);background:#fff;border-radius:26px;padding:30px;box-shadow:0 18px 55px rgba(60,25,75,.14)}
-.head{display:flex;align-items:center;gap:18px;margin-bottom:22px}
-.head img{width:86px;height:86px;border-radius:20px;object-fit:cover}
-h1{margin:0;color:#5b168d;font-size:31px} .sub{margin:5px 0;color:#746b79}
-label{font-size:14px;font-weight:700;display:block;margin:13px 0 6px}
+.card{width:min(720px,100%);background:#fff;border-radius:26px;padding:30px;box-shadow:0 18px 55px rgba(60,25,75,.14)}
+.brand{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.brand img{width:86px;height:86px;border-radius:20px;object-fit:cover}
+h1{margin:0;color:#5b168d;font-size:31px}
+.sub{margin:5px 0 0;color:#756b7a}
+.lead{color:#5f5664;line-height:1.55}
+label{display:block;font-size:14px;font-weight:700;margin:13px 0 6px}
 input{width:100%;padding:14px;border:1px solid #d8cddd;border-radius:12px;font-size:16px}
 button,a.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px 16px;font-size:16px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer}
-.login{margin-top:18px;background:#5b168d;color:#fff}
-.open{background:#ef3340;color:#fff;margin:18px 0 24px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.install{background:#f2eaf6;color:#5b168d;border:1px solid #e2d3e9}
-h2{font-size:20px;margin:12px 0 7px} .intro{color:#5f5664;line-height:1.5}
-.hidden{display:none!important} .error{display:none;color:#b42318;margin-top:10px} .error.show{display:block}
-.help{display:none;margin-top:16px;padding:16px;background:#faf8fb;border-radius:14px;line-height:1.55}
-.help.show{display:block} .help li{margin:7px 0} .back{margin-top:14px;background:#fff;color:#5b168d;border:1px solid #d9cce0}
-.badge{font-size:13px;color:#6c6470;margin-top:14px;text-align:center}
-@media(max-width:560px){.card{padding:22px 18px}.grid{grid-template-columns:1fr}.head img{width:70px;height:70px}h1{font-size:27px}}
+.primary{background:#5b168d;color:#fff}
+.open{background:#ef3340;color:#fff}
+.secondary{background:#f2eaf6;color:#5b168d;border:1px solid #e2d3e9}
+.hidden{display:none!important}
+.error{display:none;color:#b42318;margin-top:10px}
+.error.show{display:block}
+.actions{display:grid;gap:12px;margin-top:20px}
+.status{margin-top:16px;padding:15px;border-radius:14px;background:#faf8fb;line-height:1.55}
+.status strong{color:#5b168d}
+.back{margin-top:14px;background:#fff;color:#5b168d;border:1px solid #d9cce0}
+.note{font-size:13px;color:#817787;margin-top:14px}
+@media(max-width:560px){.card{padding:22px 18px}.brand img{width:70px;height:70px}h1{font-size:27px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<section id="login" class="card">
-  <div class="head">
+
+<section id="loginCard" class="card">
+  <div class="brand">
     <img src="./icons/icon-192.png" alt="Patio Conecta">
-    <div><h1>Ingreso Operadores</h1><p class="sub">Patio Conecta</p></div>
+    <div>
+      <h1>Ingreso Operadores</h1>
+      <p class="sub">Patio Conecta</p>
+    </div>
   </div>
-  <p class="intro">Ingresa los datos de tu local para acceder.</p>
-  <form id="form">
-    <label>Local</label><input id="local" placeholder="Nombre del local" required>
-    <label>Clave</label><input id="clave" type="password" placeholder="Clave" required>
-    <button class="login" type="submit">Ingresar</button>
-    <div id="error" class="error">Local o clave incorrectos.</div>
+  <p class="lead">Ingresa el nombre del local y la clave.</p>
+  <form id="loginForm">
+    <label for="local">Local</label>
+    <input id="local" required placeholder="Nombre del local">
+    <label for="clave">Clave</label>
+    <input id="clave" type="password" required placeholder="Clave">
+    <button class="primary" type="submit" style="margin-top:18px">Ingresar</button>
+    <div id="loginError" class="error">Local o clave incorrectos.</div>
   </form>
 </section>
 
-<section id="portal" class="card hidden">
-  <div class="head">
+<section id="portalCard" class="card hidden">
+  <div class="brand">
     <img src="./icons/icon-192.png" alt="Patio Conecta">
-    <div><h1>Patio Conecta</h1><p class="sub">Acceso Operadores · Santiago</p></div>
+    <div>
+      <h1>Patio Conecta</h1>
+      <p class="sub">Acceso Operadores · Santiago</p>
+    </div>
   </div>
 
-  <a class="btn open" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec">Abrir Patio Conecta</a>
-
-  <h2>Instalar Patio Conecta</h2>
-  <p class="intro">Elige tu dispositivo. Si el navegador permite la instalación directa, el botón abrirá inmediatamente la ventana oficial de instalación.</p>
-
-  <div class="grid">
-    <button class="install" data-os="windows">💻 Instalar en Windows</button>
-    <button class="install" data-os="mac">🍎 Instalar en Mac</button>
-    <button class="install" data-os="android">🤖 Instalar en Android</button>
-    <button class="install" data-os="ios">📱 Instalar en iPhone / iPad</button>
+  <div class="actions">
+    <a id="openApp" class="btn open" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec">Abrir Patio Conecta</a>
+    <button id="installBtn" class="primary hidden">Instalar Patio Conecta en este equipo</button>
+    <button id="iosBtn" class="secondary hidden">Agregar Patio Conecta en iPhone / iPad</button>
+    <button id="manualBtn" class="secondary hidden">Ver cómo instalar en este equipo</button>
   </div>
 
-  <div id="help" class="help"></div>
-  <div id="badge" class="badge"></div>
-  <button id="logout" class="back">Volver al ingreso</button>
+  <div id="status" class="status">
+    <strong>Comprobando instalación…</strong><br>
+    Si el navegador habilita instalación directa, aparecerá el botón correspondiente.
+  </div>
+
+  <button id="logoutBtn" class="back">Cerrar acceso</button>
+  <p class="note">Prueba temporal. El acceso Santiago/santiago es demostrativo.</p>
 </section>
+
 </div>
 
 <script>
-const q=s=>document.querySelector(s);
-const login=q('#login'), portal=q('#portal'), help=q('#help'), badge=q('#badge');
-let deferredPrompt=null;
+const APP_URL = "https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec";
+const q = s => document.querySelector(s);
+const loginCard = q('#loginCard');
+const portalCard = q('#portalCard');
+const loginError = q('#loginError');
+const installBtn = q('#installBtn');
+const iosBtn = q('#iosBtn');
+const manualBtn = q('#manualBtn');
+const status = q('#status');
+let deferredPrompt = null;
 
-q('#form').addEventListener('submit',e=>{
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+function isAndroid() { return /android/i.test(navigator.userAgent); }
+function isWindows() { return /windows/i.test(navigator.userAgent); }
+function isMac() { return /macintosh|mac os x/i.test(navigator.userAgent) && !isIOS(); }
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches ||
+         window.navigator.standalone === true;
+}
+
+function showPortal() {
+  loginCard.classList.add('hidden');
+  portalCard.classList.remove('hidden');
+  refreshInstallUI();
+}
+
+function rememberDemoLogin() {
+  localStorage.setItem('patioConectaDemoAuth', '1');
+}
+
+function clearDemoLogin() {
+  localStorage.removeItem('patioConectaDemoAuth');
+}
+
+q('#loginForm').addEventListener('submit', e => {
   e.preventDefault();
-  const l=q('#local').value.trim().toLowerCase();
-  const c=q('#clave').value.trim().toLowerCase();
-  if(l==='santiago' && c==='santiago'){
-    q('#error').classList.remove('show');
-    login.classList.add('hidden');
-    portal.classList.remove('hidden');
-  } else q('#error').classList.add('show');
+  const local = q('#local').value.trim().toLowerCase();
+  const clave = q('#clave').value.trim().toLowerCase();
+
+  if (local === 'santiago' && clave === 'santiago') {
+    loginError.classList.remove('show');
+    rememberDemoLogin();
+
+    // If launched from the installed app, go straight to the operational Apps Script.
+    if (isStandalone()) {
+      window.location.href = APP_URL;
+      return;
+    }
+    showPortal();
+  } else {
+    loginError.classList.add('show');
+  }
 });
 
-q('#logout').onclick=()=>{
-  portal.classList.add('hidden');
-  login.classList.remove('hidden');
-  help.classList.remove('show');
-};
+q('#logoutBtn').addEventListener('click', () => {
+  clearDemoLogin();
+  portalCard.classList.add('hidden');
+  loginCard.classList.remove('hidden');
+});
 
-window.addEventListener('beforeinstallprompt',e=>{
+window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
-  deferredPrompt=e;
-  badge.textContent='Instalación directa disponible en este navegador.';
+  deferredPrompt = e;
+  refreshInstallUI();
 });
 
-window.addEventListener('appinstalled',()=>{
-  deferredPrompt=null;
-  badge.textContent='Patio Conecta quedó instalada.';
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  installBtn.classList.add('hidden');
+  manualBtn.classList.add('hidden');
+  status.innerHTML = '<strong>Instalación completada.</strong><br>Patio Conecta quedó instalada con su nombre e ícono.';
 });
 
-async function installOrHelp(os){
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-    deferredPrompt=null;
+function refreshInstallUI() {
+  installBtn.classList.add('hidden');
+  iosBtn.classList.add('hidden');
+  manualBtn.classList.add('hidden');
+
+  if (isStandalone()) {
+    status.innerHTML = '<strong>Patio Conecta está instalada.</strong><br>Abriendo la aplicación operativa…';
+    setTimeout(() => window.location.href = APP_URL, 350);
     return;
   }
 
-  let msg='';
-  if(os==='windows') msg='<strong>Windows</strong><ol><li>Abre esta página en Chrome o Edge.</li><li>Menú <strong>⋮</strong> → <strong>Transmitir, guardar y compartir</strong> → <strong>Instalar página como app</strong>.</li><li>Confirma <strong>Instalar</strong>.</li></ol>';
-  if(os==='mac') msg='<strong>Mac</strong><ol><li>Chrome/Edge: usa <strong>Instalar página como app</strong> cuando aparezca.</li><li>Safari compatible: <strong>Archivo → Agregar al Dock</strong>.</li></ol>';
-  if(os==='android') msg='<strong>Android</strong><ol><li>Abre esta página en Chrome.</li><li>Menú <strong>⋮</strong> → <strong>Instalar app</strong> o <strong>Agregar a pantalla principal</strong>.</li><li>Confirma.</li></ol>';
-  if(os==='ios') msg='<strong>iPhone / iPad</strong><ol><li>Abre esta página en <strong>Safari</strong>.</li><li>Toca <strong>Compartir</strong>.</li><li>Elige <strong>Agregar a pantalla de inicio</strong>.</li><li>Toca <strong>Agregar</strong>.</li></ol>';
-  help.innerHTML=msg;
-  help.classList.add('show');
-  help.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if (deferredPrompt) {
+    installBtn.classList.remove('hidden');
+    status.innerHTML = '<strong>Instalación directa disponible.</strong><br>Pulsa “Instalar Patio Conecta en este equipo”.';
+    return;
+  }
+
+  if (isIOS()) {
+    iosBtn.classList.remove('hidden');
+    status.innerHTML = '<strong>iPhone / iPad.</strong><br>Apple exige agregar la aplicación desde Safari.';
+    return;
+  }
+
+  manualBtn.classList.remove('hidden');
+  status.innerHTML = '<strong>El navegador no habilitó instalación directa.</strong><br>Usa “Ver cómo instalar en este equipo”.';
 }
 
-document.querySelectorAll('[data-os]').forEach(b=>b.onclick=()=>installOrHelp(b.dataset.os));
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) {
+    refreshInstallUI();
+    return;
+  }
+  deferredPrompt.prompt();
+  const result = await deferredPrompt.userChoice;
+  if (result.outcome === 'accepted') {
+    status.innerHTML = '<strong>Instalación iniciada.</strong><br>Confirma la ventana del navegador.';
+  } else {
+    status.innerHTML = '<strong>Instalación cancelada.</strong><br>Puedes volver a intentarlo.';
+  }
+  deferredPrompt = null;
+});
 
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
+iosBtn.addEventListener('click', () => {
+  status.innerHTML = '<strong>iPhone / iPad</strong><br>1. Abre esta página en Safari.<br>2. Toca Compartir.<br>3. Elige “Agregar a pantalla de inicio”.<br>4. Toca “Agregar”.';
+});
+
+manualBtn.addEventListener('click', () => {
+  if (isWindows()) {
+    status.innerHTML = '<strong>Windows</strong><br>Chrome/Edge → menú ⋮ → Instalar página como app / Instalar aplicación.';
+  } else if (isMac()) {
+    status.innerHTML = '<strong>Mac</strong><br>Chrome/Edge → Instalar página como app. En Safari compatible: Archivo → Agregar al Dock.';
+  } else if (isAndroid()) {
+    status.innerHTML = '<strong>Android</strong><br>Chrome → menú ⋮ → Instalar app / Agregar a pantalla principal.';
+  } else {
+    status.innerHTML = '<strong>Instalación manual</strong><br>Utiliza la opción de instalar/agregar aplicación disponible en tu navegador.';
+  }
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      await navigator.serviceWorker.register('./sw.js');
+      await navigator.serviceWorker.ready;
+    } catch (err) {
+      status.innerHTML = '<strong>Error.</strong><br>No se pudo registrar el service worker.';
+    }
+
+    // If this was launched from the installed icon and the demo login was already completed,
+    // go directly to the Apps Script.
+    if (isStandalone() && localStorage.getItem('patioConectaDemoAuth') === '1') {
+      window.location.href = APP_URL;
+      return;
+    }
+
+    setTimeout(refreshInstallUI, 500);
+  });
+} else {
+  setTimeout(refreshInstallUI, 300);
 }
 </script>
 </body>
