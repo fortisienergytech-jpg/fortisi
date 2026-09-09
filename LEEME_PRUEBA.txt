@@ -1,0 +1,39 @@
+PRUEBA TEMPORAL FÓRTISI → GOOGLE APPS SCRIPT
+
+QUÉ HACE
+- Crea una PWA temporal bajo /app-prueba/
+- Instala con nombre e ícono propios.
+- Al pulsar “Abrir App de Adquisiciones” abre la Web App de Google Apps Script indicada.
+- NO modifica el index.html principal de FÓRTISI.
+- NO modifica la App Script de Adquisiciones.
+
+CÓMO SUBIR A GITHUB
+1. En el repositorio fortisienergytech-jpg/fortisi, crea una carpeta llamada: app-prueba
+2. Sube TODO el contenido de esta carpeta conservando:
+   app-prueba/index.html
+   app-prueba/manifest.webmanifest
+   app-prueba/sw.js
+   app-prueba/icons/...
+3. Haz Commit.
+4. Espera el despliegue automático de Vercel.
+5. Abre: https://fortisi.cl/app-prueba/
+
+PRUEBA EN IPHONE/IPAD
+- Abrir la URL en Safari.
+- Compartir → Agregar a pantalla de inicio.
+- Verificar que aparece “FÓRTISI Test” con el ícono.
+- Abrirla y pulsar “Abrir App de Adquisiciones”.
+
+PRUEBA EN ANDROID / WINDOWS / MAC
+- Abrir la URL en un navegador compatible.
+- Usar la opción Instalar app / Agregar a pantalla de inicio cuando esté disponible.
+- Verificar nombre, ícono y apertura.
+
+IMPORTANTE
+Esta prueba demuestra la capa instalable bajo el dominio propio.
+La App de Google Apps Script sigue siendo una aplicación aparte y se abre mediante enlace.
+No estamos incrustándola en iframe ni cambiando su Code.gs.
+
+PARA BORRAR LA PRUEBA
+- Eliminar la carpeta app-prueba del repositorio y hacer Commit.
+- Vercel eliminará esa ruta en el siguiente despliegue.
