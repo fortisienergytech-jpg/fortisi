@@ -7,224 +7,160 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Patio Conecta">
-  <title>Acceso Operadores | Patio Conecta</title>
+  <title>Ingreso Operadores | Patio Conecta</title>
 
-  <!-- CONSERVA LOS MISMOS RECURSOS PWA QUE YA PROBAMOS -->
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" sizes="180x180" href="./icons/icon-180.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-32.png">
 
   <style>
     *{box-sizing:border-box}
-    html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;background:#f6f3f8;color:#291632}
-    body{overflow:hidden}
+    html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#f7f3fa;color:#24152d}
+    body{background:
+      radial-gradient(circle at 20% 10%,rgba(255,255,255,.95),rgba(255,255,255,0) 32%),
+      linear-gradient(180deg,#fbf8fc 0%,#f4ecf8 100%)}
+    .wrap{min-height:100vh;display:grid;place-items:center;padding:28px}
+    .card{width:min(580px,100%);background:#fff;border:1px solid #eadff0;border-radius:28px;padding:30px;box-shadow:0 22px 65px rgba(72,32,91,.14)}
+    .brand{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+    .brand img{width:76px;height:76px;border-radius:18px}
+    .brand h1{margin:0;color:#5b168d;font-size:30px;line-height:1.05}
+    .brand p{margin:6px 0 0;color:#7a6f80;font-size:14px}
+    .eyebrow{display:inline-flex;padding:6px 10px;border-radius:999px;background:#f2e8f7;color:#5b168d;font-size:12px;font-weight:800;margin-bottom:12px}
+    h2{font-size:27px;margin:0 0 8px;color:#2c1736}
+    .lead{margin:0;color:#736878;line-height:1.55}
+    .field{margin-top:16px}
+    label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}
+    select,input{width:100%;padding:14px;border:1px solid #ddd2e2;border-radius:13px;font-size:15px;background:#fff}
+    button{border:0;border-radius:14px;padding:14px 16px;font-size:15px;font-weight:800;cursor:pointer}
+    .primary{background:#5b168d;color:#fff;width:100%;margin-top:18px}
+    .error{display:none;color:#b42318;margin-top:10px;font-size:13px}
+    .error.show{display:block}
+    .hidden{display:none!important}
 
-    .shell{height:100%;display:grid;grid-template-rows:auto 1fr}
-
-    .topbar{
-      position:relative;z-index:20;
-      display:flex;align-items:center;justify-content:space-between;gap:16px;
-      padding:10px 16px;
-      background:#fff;border-bottom:1px solid #e8dfea;
-      box-shadow:0 3px 14px rgba(60,25,75,.07)
-    }
-    .brand{display:flex;align-items:center;gap:11px;min-width:0}
-    .brand img{width:42px;height:42px;border-radius:11px;flex:0 0 auto}
-    .brand-copy{min-width:0}
-    .brand-copy strong{display:block;color:#5b168d;font-size:15px;line-height:1.1}
-    .brand-copy small{display:block;color:#786e7d;font-size:11px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-    .top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-    button,a.action{
-      border:0;border-radius:11px;padding:10px 13px;
-      font:inherit;font-size:12px;font-weight:800;cursor:pointer;
-      text-decoration:none;text-align:center
-    }
-    .primary{background:#5b168d;color:#fff}
-    .secondary{background:#f3ebf6;color:#5b168d;border:1px solid #e2d4e8}
-    .open-external{background:#ef3340;color:#fff}
-
-    .app-wrap{position:relative;min-height:0;background:#f8f6f9}
-    #patioApp{width:100%;height:100%;border:0;display:block;background:#fff}
-
-    .loading{
-      position:absolute;inset:0;z-index:5;display:grid;place-items:center;
-      background:#f6f3f8;transition:opacity .2s ease
-    }
-    .loading.hidden{opacity:0;pointer-events:none}
-    .loading-card{
-      width:min(360px,calc(100% - 32px));background:#fff;border-radius:22px;
-      padding:24px;text-align:center;box-shadow:0 16px 45px rgba(60,25,75,.12)
-    }
-    .loading-card img{width:68px;height:68px;border-radius:16px}
-    .loading-card h2{color:#5b168d;font-size:20px;margin:12px 0 5px}
-    .loading-card p{font-size:13px;line-height:1.5;color:#756b7a;margin:0}
-
-    .drawer-backdrop{
-      position:fixed;inset:0;background:rgba(31,16,39,.40);z-index:90;
-      opacity:0;pointer-events:none;transition:.2s
-    }
-    .drawer-backdrop.show{opacity:1;pointer-events:auto}
-
-    .drawer{
-      position:fixed;right:0;top:0;height:100%;width:min(430px,100%);
-      z-index:100;background:#fff;padding:20px;overflow:auto;
-      transform:translateX(102%);transition:.25s ease;
-      box-shadow:-18px 0 50px rgba(31,16,39,.20)
-    }
-    .drawer.show{transform:translateX(0)}
-    .drawer-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
-    .drawer-head h2{margin:0;color:#5b168d;font-size:22px}
-    .drawer-head p{margin:5px 0 0;color:#756b7a;font-size:12px}
-    .close{width:36px;height:36px;border-radius:50%;padding:0;background:#f2ebf5;color:#5b168d;font-size:18px}
-
-    .status{margin-top:12px;padding:14px;border-radius:15px;background:#faf8fb;line-height:1.55}
+    .welcome{text-align:center}
+    .check{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;background:#efe4f6;color:#6b1e9b;font-size:34px;font-weight:900}
+    .welcome h2{font-size:30px}
+    .welcome p{max-width:430px;margin:0 auto;color:#736878;line-height:1.55}
+    .choice-info{margin:22px 0 14px;padding:15px;border-radius:16px;background:#f8f3fb;text-align:left}
+    .choice-info b{display:block;color:#31163d;margin-bottom:5px}
+    .choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .choice{min-height:150px;border-radius:18px;padding:18px;text-align:left;display:flex;flex-direction:column;justify-content:space-between}
+    .choice.web{background:#faf7fc;border:1px solid #e8daee;color:#5b168d}
+    .choice.install{background:linear-gradient(135deg,#7b24b3,#5b168d);color:#fff}
+    .choice-icon{font-size:28px}
+    .choice strong{font-size:18px;display:block}
+    .choice small{font-size:12px;line-height:1.45;opacity:.82}
+    .device-note{margin-top:14px;font-size:12px;color:#827689}
+    .back{width:100%;margin-top:12px;background:#fff;border:1px solid #dfd3e5;color:#5b168d}
+    .status{margin-top:16px;padding:14px;border-radius:14px;background:#faf8fb;text-align:left;line-height:1.55}
     .status strong{color:#5b168d}
-
-    .install-guide{display:grid;gap:12px}
-    .install-detected{
-      display:inline-flex;align-items:center;gap:7px;width:max-content;max-width:100%;
-      padding:6px 10px;border-radius:999px;background:#efe6f4;color:#5b168d;
-      font-size:12px;font-weight:700
-    }
-    .install-title{font-size:17px;font-weight:800;color:#291632}
-    .install-steps{display:grid;gap:9px}
-    .install-step{
-      display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;
-      padding:10px 11px;border-radius:12px;background:#fff;border:1px solid #e9dfee
-    }
-    .install-step-num{
-      width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
-      background:#5b168d;color:#fff;font-size:13px;font-weight:800
-    }
-    .install-step div:last-child{padding-top:4px;font-size:14px;color:#4f4554}
-    .install-note{font-size:12px;color:#7d7282}
     .share-icon{display:inline-flex;vertical-align:-4px;margin:0 3px}
     .share-icon svg{width:21px;height:21px;display:block;stroke:currentColor}
-    .install-browser-icon{
-      display:inline-flex;vertical-align:-6px;margin:0 5px;padding:3px;
-      border:1px solid #ded3e4;border-radius:7px;background:#fff;color:#291632
-    }
+    .install-browser-icon{display:inline-flex;vertical-align:-6px;margin:0 5px;padding:3px;border:1px solid #ded3e4;border-radius:7px;background:#fff;color:#291632}
     .install-browser-icon svg{width:25px;height:25px;display:block;stroke:currentColor}
 
-    .drawer-actions{display:grid;gap:9px;margin-top:14px}
-    .drawer-actions button{width:100%}
-
-    @media(max-width:700px){
-      .topbar{padding:8px 10px}
-      .brand-copy small{display:none}
-      .brand img{width:38px;height:38px}
-      .top-actions{gap:6px}
-      button,a.action{font-size:11px;padding:9px 10px}
-      .hide-mobile{display:none}
+    @media(max-width:620px){
+      .wrap{padding:16px}
+      .card{padding:22px 18px}
+      .brand img{width:64px;height:64px}
+      .brand h1{font-size:25px}
+      .choices{grid-template-columns:1fr}
+      .choice{min-height:125px}
     }
   </style>
 </head>
-
 <body>
-<div class="shell">
+<div class="wrap">
 
-  <header class="topbar">
-    <div class="brand">
-      <img src="./icons/icon-192.png" alt="Patio Conecta">
-      <div class="brand-copy">
-        <strong>Patio Conecta</strong>
-        <small>Acceso Operadores · demostración de integración</small>
-      </div>
+<section id="loginCard" class="card">
+  <div class="brand">
+    <img src="./icons/icon-192.png" alt="Patio Conecta">
+    <div>
+      <h1>Patio Conecta</h1>
+      <p>Acceso Operadores · Demo</p>
+    </div>
+  </div>
+
+  <span class="eyebrow">ACCESO OPERADORES</span>
+  <h2>Ingreso Operadores</h2>
+  <p class="lead">Accede con las mismas credenciales de la app de Adquisiciones.</p>
+
+  <form id="loginForm">
+    <div class="field">
+      <label for="usuario">Usuario</label>
+      <select id="usuario" required>
+        <option value="VALERIA">Valeria Villablanca</option>
+        <option value="DIANA">Diana Delgado</option>
+      </select>
     </div>
 
-    <div class="top-actions">
-      <button id="webBtn" class="secondary hide-mobile" type="button">Continuar en la web</button>
-      <button id="installOpenBtn" class="primary" type="button">Instalar Patio Conecta</button>
-      <a class="action open-external hide-mobile" target="_blank" rel="noopener" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec?authuser=0">Abrir aparte</a>
+    <div class="field">
+      <label for="clave">Clave</label>
+      <input id="clave" type="password" required placeholder="Ingresa tu clave">
     </div>
-  </header>
 
-  <main class="app-wrap">
-    <!--
-      CLAVE DEL PROTOTIPO:
-      La interfaz que se ve aquí ES LA APP.
-      No existe un login separado en la página web.
-      El usuario se autentica una sola vez dentro de Patio Conecta.
-    -->
-    <iframe
-      id="patioApp"
-      title="Patio Conecta · Acceso Operadores"
-      src="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec?authuser=0"
-      allow="clipboard-read; clipboard-write"
-    ></iframe>
+    <button class="primary" type="submit">Ingresar</button>
+    <div id="loginError" class="error">No pudimos validar el acceso.</div>
+  </form>
+</section>
 
-    <div id="loading" class="loading">
-      <div class="loading-card">
-        <img src="./icons/icon-192.png" alt="Patio Conecta">
-        <h2>Patio Conecta</h2>
-        <p>Cargando el acceso de operadores…</p>
-      </div>
-    </div>
-  </main>
+<section id="choiceCard" class="card hidden">
+  <div class="welcome">
+    <div class="check">✓</div>
+    <span class="eyebrow">ACCESO CONFIRMADO</span>
+    <h2 id="welcomeTitle">¡Bienvenida!</h2>
+    <p>Has ingresado correctamente. Elige cómo quieres continuar.</p>
+  </div>
+
+  <div class="choice-info">
+    <b>¿Cómo quieres continuar?</b>
+    Puedes seguir trabajando desde el navegador o instalar Patio Conecta en este equipo.
+  </div>
+
+  <div class="choices">
+    <button id="continueBtn" class="choice web" type="button">
+      <span class="choice-icon">▣</span>
+      <span>
+        <strong>Continuar en la web</strong>
+        <small>Abrir Adquisiciones en este navegador.</small>
+      </span>
+    </button>
+
+    <button id="downloadBtn" class="choice install" type="button">
+      <span class="choice-icon">⇩</span>
+      <span>
+        <strong>Descargar la app</strong>
+        <small>Instalar Patio Conecta en este equipo.</small>
+      </span>
+    </button>
+  </div>
+
+  <div id="status" class="status hidden"></div>
+  <div class="device-note">Disponible para Windows, Mac, iPhone/iPad y Android según compatibilidad del navegador.</div>
+
+  <button id="backBtn" class="back" type="button">Volver al ingreso</button>
+</section>
+
 </div>
 
-<div id="drawerBackdrop" class="drawer-backdrop"></div>
-
-<aside id="installDrawer" class="drawer" aria-hidden="true">
-  <div class="drawer-head">
-    <div>
-      <h2>Instalar Patio Conecta</h2>
-      <p>Te mostramos los pasos correctos según este equipo y navegador.</p>
-    </div>
-    <button id="closeDrawer" class="close" type="button" aria-label="Cerrar">×</button>
-  </div>
-
-  <div id="status" class="status">
-    <strong>Comprobando instalación…</strong><br>
-    Detectando este equipo.
-  </div>
-
-  <div class="drawer-actions">
-    <button id="installBtn" class="primary" type="button" hidden>Instalar Patio Conecta en este equipo</button>
-  </div>
-</aside>
-
 <script>
-const q = s => document.querySelector(s);
 const APP_URL = 'https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec?authuser=0';
-
-const iframe = q('#patioApp');
-const loading = q('#loading');
-const drawer = q('#installDrawer');
-const backdrop = q('#drawerBackdrop');
+const q = s => document.querySelector(s);
+const loginCard = q('#loginCard');
+const choiceCard = q('#choiceCard');
+const loginError = q('#loginError');
 const status = q('#status');
-const installBtn = q('#installBtn');
-
 let deferredPrompt = null;
+let validatedUser = null;
 
-iframe.addEventListener('load', () => {
-  setTimeout(() => loading.classList.add('hidden'), 250);
-});
-
-q('#webBtn').addEventListener('click', () => {
-  closeInstall();
-  iframe.focus();
-});
-
-q('#installOpenBtn').addEventListener('click', () => {
-  openInstall();
-  refreshInstallUI();
-});
-
-q('#closeDrawer').addEventListener('click', closeInstall);
-backdrop.addEventListener('click', closeInstall);
-
-function openInstall() {
-  drawer.classList.add('show');
-  backdrop.classList.add('show');
-  drawer.setAttribute('aria-hidden','false');
-}
-function closeInstall() {
-  drawer.classList.remove('show');
-  backdrop.classList.remove('show');
-  drawer.setAttribute('aria-hidden','true');
-}
+/* DEMO:
+   Para no tocar tu Apps Script actual, validamos aquí las mismas credenciales
+   de laboratorio. En la versión real, esta validación la hará Patio Conecta
+   o un endpoint autorizado por la agencia. */
+const DEMO_USERS = {
+  VALERIA: 'PB2026!',
+  DIANA: 'PB2026!'
+};
 
 function isIOS() {
   return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
@@ -236,20 +172,16 @@ function isMac() { return /macintosh|mac os x/i.test(navigator.userAgent) && !is
 function isStandalone() {
   return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 }
-
 function getBrowser() {
   const ua = navigator.userAgent || '';
-
   if (isIOS()) {
     if (/CriOS/i.test(ua)) return 'Chrome';
     if (/EdgiOS/i.test(ua)) return 'Edge';
     if (/FxiOS/i.test(ua)) return 'Firefox';
-    if (/OPiOS/i.test(ua)) return 'Opera';
     if (/Instagram|FBAN|FBAV|WhatsApp|GSA/i.test(ua)) return 'Navegador interno';
     if (/Safari/i.test(ua)) return 'Safari';
     return 'Otro navegador';
   }
-
   if (isAndroid()) {
     if (/Firefox/i.test(ua)) return 'Firefox';
     if (/EdgA/i.test(ua)) return 'Edge';
@@ -257,191 +189,107 @@ function getBrowser() {
     if (/Chrome/i.test(ua)) return 'Chrome';
     return 'Otro navegador';
   }
-
   if (/Edg/i.test(ua)) return 'Edge';
   if (/Firefox/i.test(ua)) return 'Firefox';
   if (/Chrome/i.test(ua)) return 'Chrome';
   if (/Safari/i.test(ua)) return 'Safari';
   return 'Navegador';
 }
-
-function deviceName() {
-  if (isIOS()) return 'iPhone / iPad';
-  if (isAndroid()) return 'Android';
-  if (isWindows()) return 'Windows';
-  if (isMac()) return 'Mac';
-  return 'Este equipo';
-}
-
 function shareIcon() {
-  return `<span class="share-icon" aria-label="Compartir">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 15V3"></path>
-      <path d="M8.5 6.5 12 3l3.5 3.5"></path>
-      <path d="M7 9H5.8A1.8 1.8 0 0 0 4 10.8v8.4A1.8 1.8 0 0 0 5.8 21h12.4a1.8 1.8 0 0 0 1.8-1.8v-8.4A1.8 1.8 0 0 0 18.2 9H17"></path>
-    </svg>
-  </span>`;
+  return `<span class="share-icon" aria-label="Compartir"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"></path><path d="M8.5 6.5 12 3l3.5 3.5"></path><path d="M7 9H5.8A1.8 1.8 0 0 0 4 10.8v8.4A1.8 1.8 0 0 0 5.8 21h12.4a1.8 1.8 0 0 0 1.8-1.8v-8.4A1.8 1.8 0 0 0 18.2 9H17"></path></svg></span>`;
 }
-
 function firefoxInstallIcon() {
-  return `<span class="install-browser-icon" aria-label="Icono de instalación de Firefox">
-    <svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M8 4.5h12v3.2h3v15.8H5V7.7h3z"></path>
-      <path d="M14 3v11"></path>
-      <path d="m10.5 10.5 3.5 3.5 3.5-3.5"></path>
-      <path d="M8 19.5h12"></path>
-    </svg>
-  </span>`;
+  return `<span class="install-browser-icon" aria-label="Icono de instalación de Firefox"><svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4.5h12v3.2h3v15.8H5V7.7h3z"></path><path d="M14 3v11"></path><path d="m10.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M8 19.5h12"></path></svg></span>`;
 }
 
-function guideHTML(device,browser,title,steps,note='') {
-  return `
-    <div class="install-guide">
-      <div class="install-detected">✓ Detectamos: ${device} · ${browser}</div>
-      <div class="install-title">${title}</div>
-      <div class="install-steps">
-        ${steps.map((s,i)=>`
-          <div class="install-step">
-            <div class="install-step-num">${i+1}</div>
-            <div>${s}</div>
-          </div>
-        `).join('')}
-      </div>
-      ${note ? `<div class="install-note">${note}</div>` : ''}
-    </div>
-  `;
-}
+q('#loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const user = q('#usuario').value;
+  const pass = q('#clave').value;
+
+  if (DEMO_USERS[user] && DEMO_USERS[user] === pass) {
+    validatedUser = user;
+    loginError.classList.remove('show');
+    loginCard.classList.add('hidden');
+    choiceCard.classList.remove('hidden');
+    q('#welcomeTitle').textContent = user === 'VALERIA' ? '¡Bienvenida, Valeria!' : '¡Bienvenida, Diana!';
+    q('#clave').value = '';
+  } else {
+    loginError.textContent = 'Usuario o clave incorrectos.';
+    loginError.classList.add('show');
+  }
+});
+
+q('#backBtn').addEventListener('click', () => {
+  validatedUser = null;
+  choiceCard.classList.add('hidden');
+  loginCard.classList.remove('hidden');
+  status.classList.add('hidden');
+});
+
+q('#continueBtn').addEventListener('click', () => {
+  if (!validatedUser) return;
+  /* En esta DEMO abre la app real de Adquisiciones.
+     Como no estamos modificando su login interno todavía, pedirá acceso nuevamente.
+     La ruta final para la agencia será reutilizar/autorización de sesión de Patio Conecta. */
+  window.location.href = APP_URL;
+});
 
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
-  refreshInstallUI();
 });
 
-window.addEventListener('appinstalled', () => {
-  deferredPrompt = null;
-  installBtn.hidden = true;
-  status.innerHTML = '<strong>Instalación completada.</strong><br>Patio Conecta ya quedó instalada en este equipo.';
-});
-
-installBtn.addEventListener('click', async () => {
-  if (!deferredPrompt) {
-    refreshInstallUI();
-    return;
-  }
-  deferredPrompt.prompt();
-  const result = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  status.innerHTML = result.outcome === 'accepted'
-    ? '<strong>Instalación iniciada.</strong><br>Confirma la ventana del navegador.'
-    : '<strong>Instalación cancelada.</strong><br>Puedes volver a intentarlo.';
-});
-
-function refreshInstallUI() {
-  installBtn.hidden = true;
-
+q('#downloadBtn').addEventListener('click', async () => {
+  status.classList.remove('hidden');
   const browser = getBrowser();
-  const device = deviceName();
 
   if (isStandalone()) {
-    status.innerHTML = '<strong>Patio Conecta ya está instalada.</strong><br>Estás utilizando la aplicación en modo independiente.';
+    status.innerHTML = '<strong>Patio Conecta ya está instalada.</strong><br>Estás usando la aplicación en modo independiente.';
     return;
   }
 
   if (deferredPrompt) {
-    installBtn.hidden = false;
-    status.innerHTML = guideHTML(
-      device,browser,'Instalación directa disponible',
-      ['Pulsa <b>“Instalar Patio Conecta en este equipo”</b>.','Confirma la instalación cuando el navegador lo solicite.']
-    );
+    deferredPrompt.prompt();
+    const result = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    status.innerHTML = result.outcome === 'accepted'
+      ? '<strong>Instalación iniciada.</strong><br>Confirma la instalación en el navegador.'
+      : '<strong>Instalación cancelada.</strong><br>Puedes volver a intentarlo.';
     return;
   }
 
   if (isIOS()) {
     if (browser === 'Navegador interno') {
-      status.innerHTML = guideHTML(
-        device,browser,'Primero abre Patio Conecta en un navegador',
-        [
-          'Toca <b>⋯</b> o <b>Compartir</b> ' + shareIcon() + '.',
-          'Elige <b>“Abrir en navegador”</b>, <b>“Abrir en Safari”</b> o <b>“Abrir en Chrome”</b>.',
-          'Ya en el navegador, vuelve a abrir <b>Instalar Patio Conecta</b>.'
-        ],
-        'El nombre exacto de la opción puede variar según la aplicación desde donde abriste el enlace.'
-      );
-      return;
+      status.innerHTML = '<strong>iPhone / iPad · navegador interno</strong><br>1. Toca <b>⋯</b> o <b>Compartir</b> ' + shareIcon() + '.<br>2. Abre la página en Safari o Chrome.<br>3. Luego usa <b>Compartir</b> y selecciona <b>“Añadir / Agregar a pantalla de inicio”</b>.';
+    } else {
+      status.innerHTML = '<strong>iPhone / iPad · ' + browser + '</strong><br>1. Toca <b>Compartir</b> ' + shareIcon() + '.<br>2. Selecciona <b>“Añadir / Agregar a pantalla de inicio”</b>.<br>3. Confirma con <b>Añadir / Agregar</b>.';
     }
-
-    status.innerHTML = guideHTML(
-      device,browser,'Agrega Patio Conecta a tu pantalla de inicio',
-      [
-        'Toca <b>Compartir</b> ' + shareIcon() + ' en tu navegador.',
-        'Busca <b>“Añadir a pantalla de inicio”</b> o <b>“Agregar a pantalla de inicio”</b>.',
-        'Confirma con <b>“Añadir”</b> o <b>“Agregar”</b>.'
-      ],
-      'Patio Conecta quedará como un icono en tu pantalla de inicio.'
-    );
-    return;
-  }
-
-  if (isWindows() && browser === 'Firefox') {
-    status.innerHTML = guideHTML(
-      'Windows','Firefox','Instala Patio Conecta',
-      [
-        'Busca este icono ' + firefoxInstallIcon() + ' en la barra superior de Firefox. Está <b>justo a la izquierda de la estrella ⭐</b>.',
-        'Haz clic en ese icono de instalación.',
-        'Confirma la instalación de <b>Patio Conecta</b>.'
-      ]
-    );
-    return;
-  }
-
-  if (isMac() && browser === 'Firefox') {
-    status.innerHTML = guideHTML(
-      'Mac','Firefox','Para instalar Patio Conecta',
-      [
-        'Firefox en Mac no muestra el botón de instalación de aplicaciones web.',
-        'Abre <b>Safari</b> o <b>Chrome</b>.',
-        'Pega <b>fortisi.cl/patio-conecta/</b> y vuelve a elegir <b>Instalar Patio Conecta</b>.'
-      ],
-      'Puedes seguir usando la app normalmente aquí en Firefox.'
-    );
     return;
   }
 
   if (isMac() && browser === 'Safari') {
-    status.innerHTML = guideHTML(
-      'Mac','Safari','Instala Patio Conecta',
-      [
-        'Haz clic en <b>Compartir</b> ' + shareIcon() + ' arriba a la derecha.',
-        'Selecciona <b>“Agregar al Dock”</b>.',
-        'Revisa el nombre <b>“Patio Conecta”</b> y confirma con <b>“Agregar”</b>.'
-      ]
-    );
+    status.innerHTML = '<strong>Mac · Safari</strong><br>1. Haz clic en <b>Compartir</b> ' + shareIcon() + ' arriba a la derecha.<br>2. Selecciona <b>“Agregar al Dock”</b>.<br>3. Confirma <b>“Patio Conecta”</b> con <b>“Agregar”</b>.';
+    return;
+  }
+
+  if (isMac() && browser === 'Firefox') {
+    status.innerHTML = '<strong>Mac · Firefox</strong><br>Firefox en Mac no muestra instalación directa. Abre esta misma página en <b>Safari</b> o <b>Chrome</b> para instalar Patio Conecta.';
+    return;
+  }
+
+  if (isWindows() && browser === 'Firefox') {
+    status.innerHTML = '<strong>Windows · Firefox</strong><br>Busca este icono ' + firefoxInstallIcon() + ' en la barra superior, <b>justo a la izquierda de la estrella ⭐</b>. Haz clic y confirma la instalación.';
     return;
   }
 
   if (isAndroid() && browser === 'Firefox') {
-    status.innerHTML = guideHTML(
-      'Android','Firefox','Agrega Patio Conecta',
-      [
-        'Toca el menú <b>⋮</b> de Firefox.',
-        'Selecciona <b>Instalar</b> o <b>Añadir / Agregar a pantalla de inicio</b>.',
-        'Confirma.'
-      ],
-      'El icono instalado se obtiene del manifest de Patio Conecta.'
-    );
+    status.innerHTML = '<strong>Android · Firefox</strong><br>Abre el menú <b>⋮</b> y selecciona <b>Instalar</b> o <b>Añadir / Agregar a pantalla de inicio</b>.';
     return;
   }
 
-  status.innerHTML = guideHTML(
-    device,browser,'Instala Patio Conecta',
-    [
-      'Abre el menú del navegador.',
-      'Busca <b>Instalar app</b>, <b>Instalar página como app</b> o <b>Añadir / Agregar a pantalla principal</b>.',
-      'Confirma la instalación.'
-    ]
-  );
-}
+  status.innerHTML = '<strong>' + browser + '</strong><br>Utiliza la opción <b>Instalar app</b>, <b>Instalar página como app</b> o <b>Añadir / Agregar a pantalla principal</b> disponible en tu navegador.';
+});
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
@@ -449,7 +297,7 @@ if ('serviceWorker' in navigator) {
       await navigator.serviceWorker.register('./sw.js');
       await navigator.serviceWorker.ready;
     } catch (e) {
-      console.warn('Service worker:', e);
+      console.warn(e);
     }
   });
 }
