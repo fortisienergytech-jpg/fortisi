@@ -66,11 +66,8 @@
 
   <div class="actions">
     <a class="btn open" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec">Abrir Patio Conecta</a>
-
     <button id="installBtn" class="primary hidden">Instalar Patio Conecta en este equipo</button>
-
     <button id="iosBtn" class="secondary hidden">Agregar Patio Conecta en iPhone / iPad</button>
-
     <button id="manualBtn" class="secondary hidden">Ver cómo instalar en este equipo</button>
   </div>
 
@@ -105,6 +102,24 @@ function isMac() { return /macintosh|mac os x/i.test(navigator.userAgent) && !is
 function isStandalone() {
   return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 }
+
+/* NUEVO: detecta el navegador SOLO cuando el equipo es iPhone/iPad. */
+function getIOSBrowser() {
+  const ua = navigator.userAgent || '';
+
+  if (/CriOS/i.test(ua)) return 'chrome';
+  if (/EdgiOS/i.test(ua)) return 'edge';
+  if (/FxiOS/i.test(ua)) return 'firefox';
+  if (/OPiOS/i.test(ua)) return 'opera';
+  if (/Instagram/i.test(ua)) return 'instagram';
+  if (/FBAN|FBAV/i.test(ua)) return 'facebook';
+  if (/WhatsApp/i.test(ua)) return 'whatsapp';
+  if (/GSA/i.test(ua)) return 'googleapp';
+  if (/Safari/i.test(ua) && !/CriOS|EdgiOS|FxiOS|OPiOS/i.test(ua)) return 'safari';
+
+  return 'other';
+}
+
 function show(el) { el.classList.remove('hidden'); }
 
 q('#loginForm').addEventListener('submit', e => {
@@ -157,7 +172,21 @@ function refreshInstallUI() {
 
   if (isIOS()) {
     show(iosBtn);
-    status.innerHTML = '<strong>iPhone / iPad.</strong><br>Apple exige agregar la aplicación manualmente desde Safari.';
+    const browser = getIOSBrowser();
+
+    if (browser === 'safari') {
+      status.innerHTML = '<strong>iPhone / iPad · Safari.</strong><br>Pulsa “Agregar Patio Conecta en iPhone / iPad” para ver los pasos.';
+    } else if (browser === 'chrome') {
+      status.innerHTML = '<strong>iPhone / iPad · Chrome.</strong><br>Pulsa “Agregar Patio Conecta en iPhone / iPad” para ver los pasos.';
+    } else if (browser === 'edge') {
+      status.innerHTML = '<strong>iPhone / iPad · Edge.</strong><br>Pulsa “Agregar Patio Conecta en iPhone / iPad” para ver los pasos.';
+    } else if (browser === 'firefox') {
+      status.innerHTML = '<strong>iPhone / iPad · Firefox.</strong><br>Pulsa “Agregar Patio Conecta en iPhone / iPad” para ver los pasos.';
+    } else if (['instagram','facebook','whatsapp','googleapp'].includes(browser)) {
+      status.innerHTML = '<strong>iPhone / iPad · navegador interno.</strong><br>Estás abriendo Patio Conecta dentro de otra aplicación. Pulsa el botón para ver cómo continuar.';
+    } else {
+      status.innerHTML = '<strong>iPhone / iPad.</strong><br>Detectamos iOS. Pulsa el botón para ver las instrucciones.';
+    }
     return;
   }
 
@@ -180,8 +209,74 @@ installBtn.addEventListener('click', async () => {
   deferredPrompt = null;
 });
 
+/* SOLO ESTE BLOQUE CAMBIA LAS INSTRUCCIONES DE iOS SEGÚN EL NAVEGADOR. */
 iosBtn.addEventListener('click', () => {
-  status.innerHTML = '<strong>iPhone / iPad</strong><br>1. Abre esta página en Safari.<br>2. Toca Compartir.<br>3. Selecciona “Agregar a pantalla de inicio”.<br>4. Toca “Agregar”.';
+  const browser = getIOSBrowser();
+
+  if (browser === 'safari') {
+    status.innerHTML =
+      '<strong>iPhone / iPad · Safari</strong><br>' +
+      '1. Toca el botón <b>Compartir</b> de Safari.<br>' +
+      '2. Busca <b>Agregar a pantalla de inicio</b>.<br>' +
+      '3. Toca <b>Agregar</b>.<br>' +
+      'Patio Conecta quedará como un icono en tu pantalla de inicio.';
+    return;
+  }
+
+  if (browser === 'chrome') {
+    status.innerHTML =
+      '<strong>iPhone / iPad · Chrome</strong><br>' +
+      '1. Toca <b>Compartir</b> en Chrome.<br>' +
+      '2. Busca <b>Agregar a pantalla de inicio</b> o la opción equivalente.<br>' +
+      '3. Confirma con <b>Agregar</b>.<br>' +
+      'Si esa opción no aparece, abre esta misma página en Safari y usa Compartir → Agregar a pantalla de inicio.';
+    return;
+  }
+
+  if (browser === 'edge') {
+    status.innerHTML =
+      '<strong>iPhone / iPad · Edge</strong><br>' +
+      '1. Abre el menú de <b>Compartir</b> de Edge.<br>' +
+      '2. Busca <b>Agregar a pantalla de inicio</b> o la opción equivalente.<br>' +
+      '3. Confirma con <b>Agregar</b>.<br>' +
+      'Si esa opción no aparece, abre esta misma página en Safari y usa Compartir → Agregar a pantalla de inicio.';
+    return;
+  }
+
+  if (browser === 'firefox') {
+    status.innerHTML =
+      '<strong>iPhone / iPad · Firefox</strong><br>' +
+      '1. Abre el menú de <b>Compartir</b> de Firefox.<br>' +
+      '2. Busca <b>Agregar a pantalla de inicio</b> si está disponible.<br>' +
+      '3. Confirma con <b>Agregar</b>.<br>' +
+      'Si Firefox no muestra esa opción, abre esta misma página en Safari y usa Compartir → Agregar a pantalla de inicio.';
+    return;
+  }
+
+  if (browser === 'opera') {
+    status.innerHTML =
+      '<strong>iPhone / iPad · Opera</strong><br>' +
+      'Busca en el menú de compartir la opción <b>Agregar a pantalla de inicio</b>.<br>' +
+      'Si no aparece, abre esta misma página en Safari y usa Compartir → Agregar a pantalla de inicio.';
+    return;
+  }
+
+  if (['instagram','facebook','whatsapp','googleapp'].includes(browser)) {
+    status.innerHTML =
+      '<strong>iPhone / iPad · navegador interno</strong><br>' +
+      '1. Abre el menú de esta aplicación (⋯ o Compartir).<br>' +
+      '2. Elige <b>Abrir en navegador</b>, <b>Abrir en Safari</b> o <b>Abrir en Chrome</b>.<br>' +
+      '3. Ya en el navegador, utiliza <b>Compartir → Agregar a pantalla de inicio</b>.<br>' +
+      'El nombre exacto de la opción puede variar según la aplicación.';
+    return;
+  }
+
+  status.innerHTML =
+    '<strong>iPhone / iPad</strong><br>' +
+    '1. Abre el menú <b>Compartir</b> de tu navegador.<br>' +
+    '2. Busca <b>Agregar a pantalla de inicio</b>.<br>' +
+    '3. Confirma con <b>Agregar</b>.<br>' +
+    'Si tu navegador no muestra esa opción, abre esta misma página en Safari y utiliza Compartir → Agregar a pantalla de inicio.';
 });
 
 manualBtn.addEventListener('click', () => {
