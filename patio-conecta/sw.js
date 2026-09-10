@@ -1,4 +1,4 @@
-const CACHE_NAME = 'patio-conecta-final-v1';
+const CACHE_NAME = 'patio-conecta-pwa-real-v1';
 const APP_SHELL = [
   './',
   './index.html',

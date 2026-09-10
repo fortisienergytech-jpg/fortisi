@@ -1,10 +1,10 @@
 {
-  "id": "/patio-conecta/",
+  "id": "./",
   "name": "Patio Conecta",
   "short_name": "Patio Conecta",
   "description": "Acceso de operadores a Patio Conecta",
-  "start_url": "/patio-conecta/?source=pwa",
-  "scope": "/patio-conecta/",
+  "start_url": "./?source=pwa",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#5b168d",

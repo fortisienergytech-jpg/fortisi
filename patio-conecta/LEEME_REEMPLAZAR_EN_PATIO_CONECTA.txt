@@ -1,0 +1,20 @@
+CARPETA CORREGIDA PARA /patio-conecta/
+
+BASE:
+PATIO_CONECTA_PWA_REAL, la versión comprobada funcionando en Mac y Windows.
+
+SE CONSERVA:
+- instalación directa de Mac/Windows/Android mediante beforeinstallprompt
+- manifest.webmanifest original de la versión estable
+- sw.js original de la versión estable
+- iconos
+- login Santiago / santiago
+
+ÚNICO AJUSTE:
+iPhone/iPad intenta abrir directamente el panel nativo Compartir con navigator.share().
+Apple/iPadOS todavía exige elegir “Agregar a pantalla de inicio” y confirmar “Agregar”.
+
+SUBIR TODO ESTE CONTENIDO DENTRO DE:
+fortisi/patio-conecta/
+
+NO SUBIR NADA DE ESTA CARPETA A LA RAÍZ fortisi/.
