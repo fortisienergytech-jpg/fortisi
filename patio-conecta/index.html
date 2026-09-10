@@ -47,6 +47,8 @@
     .install-step-num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#5b168d;color:#fff;font-size:13px;font-weight:800}
     .install-step div:last-child{padding-top:4px;font-size:14px;color:#4f4554}
     .install-note{font-size:12px;color:#7d7282}
+    .share-icon{display:inline-flex;vertical-align:-4px;margin:0 3px}
+    .share-icon svg{width:21px;height:21px;display:block;stroke:currentColor}
 
     @media(max-width:560px){
       .card{padding:22px 18px}
@@ -152,6 +154,16 @@ function getBrowser() {
   if (/Safari/i.test(ua)) return 'Safari';
 
   return 'Navegador';
+}
+
+function shareIcon() {
+  return `<span class="share-icon" aria-label="Compartir">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 15V3"></path>
+      <path d="M8.5 6.5 12 3l3.5 3.5"></path>
+      <path d="M7 9H5.8A1.8 1.8 0 0 0 4 10.8v8.4A1.8 1.8 0 0 0 5.8 21h12.4a1.8 1.8 0 0 0 1.8-1.8v-8.4A1.8 1.8 0 0 0 18.2 9H17"></path>
+    </svg>
+  </span>`;
 }
 
 function guideHTML(device,browser,title,steps,note='') {
@@ -263,7 +275,7 @@ iosBtn.addEventListener('click', () => {
       'Safari',
       'Instala Patio Conecta en 3 pasos',
       [
-        'Toca el botón <b>Compartir</b>.',
+        'Toca el botón <b>Compartir</b> ' + shareIcon() + '.',
         'Busca <b>“Añadir a pantalla de inicio”</b> o <b>“Agregar a pantalla de inicio”</b>.',
         'Toca <b>Añadir</b> o <b>Agregar</b>.'
       ],
@@ -278,11 +290,11 @@ iosBtn.addEventListener('click', () => {
       'Chrome',
       'Instala Patio Conecta desde Chrome',
       [
-        'Toca <b>Compartir</b>.',
-        'Busca <b>“Añadir a pantalla de inicio”</b> o <b>“Agregar a pantalla de inicio”</b>.',
-        'Confirma con <b>Añadir</b> o <b>Agregar</b>.'
+        'Toca el icono <b>Compartir</b> ' + shareIcon() + ' de Chrome.',
+        'Desliza las opciones hacia abajo y toca <b>“Añadir a pantalla de inicio”</b>.',
+        'Confirma tocando <b>“Añadir”</b>.'
       ],
-      'Si tu versión de Chrome no muestra esa opción, abre esta misma página en Safari como alternativa.'
+      'Busca el mismo símbolo de Compartir que ves en la barra de Chrome: una caja con una flecha hacia arriba.'
     );
     return;
   }
