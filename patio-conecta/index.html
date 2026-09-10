@@ -425,15 +425,18 @@ manualBtn.addEventListener('click', () => {
       'Instala Patio Conecta',
       browser === 'Safari'
         ? [
-            'En Safari abre el menú <b>Archivo</b>.',
-            'Selecciona <b>Agregar al Dock</b>.',
-            'Confirma.'
+            'Haz clic en el icono <b>Compartir</b> ' + shareIcon() + ' que está en la esquina superior derecha de Safari.',
+            'En el menú que se abre, selecciona <b>“Agregar al Dock”</b>.',
+            'Revisa que el nombre sea <b>“Patio Conecta”</b> y confirma con <b>“Agregar”</b>.'
           ]
         : [
             'Abre el menú de Chrome o Edge.',
             'Selecciona <b>Instalar página como app</b>.',
             'Confirma.'
-          ]
+          ],
+      browser === 'Safari'
+        ? 'Listo: Patio Conecta quedará disponible como una aplicación en tu Mac y podrás abrirla desde el Dock o desde Aplicaciones.'
+        : ''
     );
   } else if (isAndroid() && browser === 'Firefox') {
     status.innerHTML = guideHTML(
