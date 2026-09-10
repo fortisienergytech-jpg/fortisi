@@ -1,24 +1,26 @@
-PATIO CONECTA — PWA REAL
+PATIO CONECTA — PWA FINAL DE PRUEBA
+
+QUÉ MEJORÓ
+- Si se abre desde el navegador, muestra login y opciones de abrir/instalar.
+- Si se instala como PWA y el operador ya ingresó una vez con Santiago/santiago,
+  al abrir el ícono Patio Conecta intenta ir directamente a la App Script.
+- Si es la primera vez que abre la PWA instalada, pide el login y después abre la App Script.
+- El botón de instalación directa solo aparece cuando el navegador entrega beforeinstallprompt.
+- En iPhone/iPad se muestran los pasos reales permitidos por Apple.
+- Incluye manifest, service worker e íconos.
 
 SUBIR TODO dentro de /patio-conecta/:
-- index.html
-- manifest.webmanifest
-- sw.js
-- icons/
+index.html
+manifest.webmanifest
+sw.js
+icons/
 
-IMPORTANTE:
-1. Elimina/desinstala la antigua “FÓRTISI · Prueba App” antes de probar.
-2. Abre https://fortisi.cl/patio-conecta/
-3. Haz recarga fuerte.
-4. Ingresa:
-   Local: Santiago
+PRUEBA
+1. Desinstala la PWA antigua FÓRTISI · Prueba App.
+2. Reemplaza el contenido actual de /patio-conecta/ por estos archivos.
+3. Abre https://fortisi.cl/patio-conecta/
+4. Recarga fuerte.
+5. Local: Santiago
    Clave: santiago
-
-COMPORTAMIENTO:
-- Si Chrome/Edge realmente habilita beforeinstallprompt, aparece el botón:
-  “Instalar Patio Conecta en este equipo”.
-  Ese botón abre el diálogo real del navegador.
-- Si el navegador NO lo habilita, no muestra un falso botón de instalación; muestra “Ver cómo instalar”.
-- En iPhone/iPad muestra el flujo real permitido por Apple.
-
-Este paquete no finge que puede pulsar menús del navegador.
+6. Instala cuando el navegador lo permita.
+7. Cierra el navegador y abre Patio Conecta desde su ícono.
