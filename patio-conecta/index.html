@@ -49,6 +49,10 @@
     .install-note{font-size:12px;color:#7d7282}
     .share-icon{display:inline-flex;vertical-align:-4px;margin:0 3px}
     .share-icon svg{width:21px;height:21px;display:block;stroke:currentColor}
+.install-browser-icon{display:inline-flex;vertical-align:-6px;margin:0 5px;padding:3px;border:1px solid #ded3e4;border-radius:7px;background:#fff;color:#291632}
+.install-browser-icon svg{width:25px;height:25px;display:block;stroke:currentColor}
+.browser-actions{display:grid;gap:8px;margin-top:10px}
+.browser-action{width:100%;border:1px solid #dfd3e5;background:#fff;color:#5b168d;border-radius:11px;padding:11px 12px;font-weight:700;cursor:pointer}
 
     @media(max-width:560px){
       .card{padding:22px 18px}
@@ -164,6 +168,10 @@ function shareIcon() {
       <path d="M7 9H5.8A1.8 1.8 0 0 0 4 10.8v8.4A1.8 1.8 0 0 0 5.8 21h12.4a1.8 1.8 0 0 0 1.8-1.8v-8.4A1.8 1.8 0 0 0 18.2 9H17"></path>
     </svg>
   </span>`;
+}
+
+function firefoxInstallIcon() {
+  return `<span class="install-browser-icon" aria-label="Icono de instalación de Firefox"><svg viewBox="0 0 28 28" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4.5h12v3.2h3v15.8H5V7.7h3z"></path><path d="M14 3v11"></path><path d="m10.5 10.5 3.5 3.5 3.5-3.5"></path><path d="M8 19.5h12"></path></svg></span>`;
 }
 
 function guideHTML(device,browser,title,steps,note='') {
@@ -358,7 +366,46 @@ iosBtn.addEventListener('click', () => {
 });
 
 manualBtn.addEventListener('click', () => {
+
   const browser = getBrowser();
+
+  if (isWindows() && browser === 'Firefox') {
+    status.innerHTML = guideHTML(
+      'Windows','Firefox','Instala Patio Conecta',
+      [
+        'Busca este icono ' + firefoxInstallIcon() + ' en la barra superior de Firefox. Está <b>justo a la izquierda de la estrella ⭐</b>.',
+        'Haz clic en ese icono de instalación.',
+        'Confirma la instalación de <b>Patio Conecta</b>.'
+      ],
+      'Firefox creará el acceso de Patio Conecta en Windows.'
+    );
+    return;
+  }
+
+  if (isMac() && browser === 'Firefox') {
+    status.innerHTML = guideHTML(
+      'Mac','Firefox','Para instalar Patio Conecta',
+      [
+        'Firefox en Mac no muestra el botón de instalación de aplicaciones web.',
+        'Abre <b>Safari</b> o <b>Chrome</b> en tu Mac.',
+        'Pega <b>fortisi.cl/patio-conecta/</b>. Patio Conecta detectará el nuevo navegador y te mostrará automáticamente cómo instalarla.'
+      ],
+      'Puedes seguir usando Patio Conecta normalmente en Firefox. Solo necesitas Safari o Chrome si quieres dejarla instalada como aplicación.'
+    ) + '<div class="browser-actions"><button type="button" class="browser-action" id="copyPatioUrl">Copiar enlace de Patio Conecta</button></div>';
+
+    const copyBtn = document.getElementById('copyPatioUrl');
+    if (copyBtn) copyBtn.addEventListener('click', async () => {
+      const url='https://fortisi.cl/patio-conecta/';
+      try { await navigator.clipboard.writeText(url); }
+      catch(e) {
+        const ta=document.createElement('textarea'); ta.value=url; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); ta.remove();
+      }
+      copyBtn.textContent='✓ Enlace copiado';
+    });
+    return;
+  }
+
 
   if (isWindows()) {
     status.innerHTML = guideHTML(
