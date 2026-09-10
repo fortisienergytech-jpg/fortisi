@@ -36,7 +36,23 @@
     .actions{display:grid;gap:12px;margin-top:20px}
     .back{margin-top:14px;background:white;color:#5b168d;border:1px solid #d9cce0}
     .small{font-size:13px;color:#817787;margin-top:14px}
-    @media(max-width:560px){.card{padding:22px 18px}.brand img{width:70px;height:70px}h1{font-size:27px}}
+
+    /* SOLO NUEVO: presentación visual de instrucciones de instalación */
+    .install-guide{display:grid;gap:12px}
+    .install-detected{display:inline-flex;align-items:center;gap:7px;width:max-content;max-width:100%;padding:6px 10px;border-radius:999px;background:#efe6f4;color:#5b168d;font-size:12px;font-weight:700}
+    .install-title{font-size:17px;font-weight:800;color:#291632}
+    .install-copy{font-size:14px;color:#655a6a}
+    .install-steps{display:grid;gap:9px}
+    .install-step{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:10px 11px;border-radius:12px;background:#fff;border:1px solid #e9dfee}
+    .install-step-num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#5b168d;color:#fff;font-size:13px;font-weight:800}
+    .install-step div:last-child{padding-top:4px;font-size:14px;color:#4f4554}
+    .install-note{font-size:12px;color:#7d7282}
+
+    @media(max-width:560px){
+      .card{padding:22px 18px}
+      .brand img{width:70px;height:70px}
+      h1{font-size:27px}
+    }
   </style>
 </head>
 <body>
@@ -66,8 +82,11 @@
 
   <div class="actions">
     <a class="btn open" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec">Abrir Patio Conecta</a>
+
     <button id="installBtn" class="primary hidden">Instalar Patio Conecta en este equipo</button>
+
     <button id="iosBtn" class="secondary hidden">Agregar Patio Conecta en iPhone / iPad</button>
+
     <button id="manualBtn" class="secondary hidden">Ver cómo instalar en este equipo</button>
   </div>
 
@@ -103,21 +122,54 @@ function isStandalone() {
   return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 }
 
-/* NUEVO: detecta el navegador SOLO cuando el equipo es iPhone/iPad. */
-function getIOSBrowser() {
+function getBrowser() {
   const ua = navigator.userAgent || '';
 
-  if (/CriOS/i.test(ua)) return 'chrome';
-  if (/EdgiOS/i.test(ua)) return 'edge';
-  if (/FxiOS/i.test(ua)) return 'firefox';
-  if (/OPiOS/i.test(ua)) return 'opera';
-  if (/Instagram/i.test(ua)) return 'instagram';
-  if (/FBAN|FBAV/i.test(ua)) return 'facebook';
-  if (/WhatsApp/i.test(ua)) return 'whatsapp';
-  if (/GSA/i.test(ua)) return 'googleapp';
-  if (/Safari/i.test(ua) && !/CriOS|EdgiOS|FxiOS|OPiOS/i.test(ua)) return 'safari';
+  if (isIOS()) {
+    if (/CriOS/i.test(ua)) return 'Chrome';
+    if (/EdgiOS/i.test(ua)) return 'Edge';
+    if (/FxiOS/i.test(ua)) return 'Firefox';
+    if (/OPiOS/i.test(ua)) return 'Opera';
+    if (/Instagram/i.test(ua)) return 'Navegador interno';
+    if (/FBAN|FBAV/i.test(ua)) return 'Navegador interno';
+    if (/WhatsApp/i.test(ua)) return 'Navegador interno';
+    if (/GSA/i.test(ua)) return 'Navegador interno';
+    if (/Safari/i.test(ua)) return 'Safari';
+    return 'Otro navegador';
+  }
 
-  return 'other';
+  if (isAndroid()) {
+    if (/Firefox/i.test(ua)) return 'Firefox';
+    if (/EdgA/i.test(ua)) return 'Edge';
+    if (/SamsungBrowser/i.test(ua)) return 'Samsung Internet';
+    if (/Chrome/i.test(ua)) return 'Chrome';
+    return 'Otro navegador';
+  }
+
+  if (/Edg/i.test(ua)) return 'Edge';
+  if (/Firefox/i.test(ua)) return 'Firefox';
+  if (/Chrome/i.test(ua)) return 'Chrome';
+  if (/Safari/i.test(ua)) return 'Safari';
+
+  return 'Navegador';
+}
+
+function guideHTML(device,browser,title,steps,note='') {
+  return `
+    <div class="install-guide">
+      <div class="install-detected">✓ Detectamos: ${device} · ${browser}</div>
+      <div class="install-title">${title}</div>
+      <div class="install-steps">
+        ${steps.map((s,i)=>`
+          <div class="install-step">
+            <div class="install-step-num">${i+1}</div>
+            <div>${s}</div>
+          </div>
+        `).join('')}
+      </div>
+      ${note ? `<div class="install-note">${note}</div>` : ''}
+    </div>
+  `;
 }
 
 function show(el) { el.classList.remove('hidden'); }
@@ -172,21 +224,14 @@ function refreshInstallUI() {
 
   if (isIOS()) {
     show(iosBtn);
-    const browser = getIOSBrowser();
-
-    if (browser === 'safari') {
-      status.innerHTML = '<strong>iPhone / iPad · Safari.</strong><br>Pulsa “Agregar Patio Conecta en iPhone / iPad” para ver los pasos.';
-    } else if (browser === 'chrome') {
-      status.innerHTML = '<strong>iPhone / iPad · Chrome.</strong><br>Pulsa “Agregar Patio Conecta en iPhone / iPad” para ver los pasos.';
-    } else if (browser === 'edge') {
-      status.innerHTML = '<strong>iPhone / iPad · Edge.</strong><br>Pulsa “Agregar Patio Conecta en iPhone / iPad” para ver los pasos.';
-    } else if (browser === 'firefox') {
-      status.innerHTML = '<strong>iPhone / iPad · Firefox.</strong><br>Pulsa “Agregar Patio Conecta en iPhone / iPad” para ver los pasos.';
-    } else if (['instagram','facebook','whatsapp','googleapp'].includes(browser)) {
-      status.innerHTML = '<strong>iPhone / iPad · navegador interno.</strong><br>Estás abriendo Patio Conecta dentro de otra aplicación. Pulsa el botón para ver cómo continuar.';
-    } else {
-      status.innerHTML = '<strong>iPhone / iPad.</strong><br>Detectamos iOS. Pulsa el botón para ver las instrucciones.';
-    }
+    const browser = getBrowser();
+    status.innerHTML = guideHTML(
+      'iPhone / iPad',
+      browser,
+      'Patio Conecta puede agregarse a tu pantalla de inicio.',
+      ['Pulsa el botón <b>“Agregar Patio Conecta en iPhone / iPad”</b>.'],
+      'Las instrucciones se adaptarán al navegador que estás usando.'
+    );
     return;
   }
 
@@ -209,83 +254,151 @@ installBtn.addEventListener('click', async () => {
   deferredPrompt = null;
 });
 
-/* SOLO ESTE BLOQUE CAMBIA LAS INSTRUCCIONES DE iOS SEGÚN EL NAVEGADOR. */
 iosBtn.addEventListener('click', () => {
-  const browser = getIOSBrowser();
+  const browser = getBrowser();
 
-  if (browser === 'safari') {
-    status.innerHTML =
-      '<strong>iPhone / iPad · Safari</strong><br>' +
-      '1. Toca el botón <b>Compartir</b> de Safari.<br>' +
-      '2. Busca <b>Agregar a pantalla de inicio</b>.<br>' +
-      '3. Toca <b>Agregar</b>.<br>' +
-      'Patio Conecta quedará como un icono en tu pantalla de inicio.';
+  if (browser === 'Safari') {
+    status.innerHTML = guideHTML(
+      'iPhone / iPad',
+      'Safari',
+      'Instala Patio Conecta en 3 pasos',
+      [
+        'Toca el botón <b>Compartir</b>.',
+        'Busca <b>“Añadir a pantalla de inicio”</b> o <b>“Agregar a pantalla de inicio”</b>.',
+        'Toca <b>Añadir</b> o <b>Agregar</b>.'
+      ],
+      'Patio Conecta quedará como un icono en tu pantalla de inicio.'
+    );
     return;
   }
 
-  if (browser === 'chrome') {
-    status.innerHTML =
-      '<strong>iPhone / iPad · Chrome</strong><br>' +
-      '1. Toca <b>Compartir</b> en Chrome.<br>' +
-      '2. Busca <b>Agregar a pantalla de inicio</b> o la opción equivalente.<br>' +
-      '3. Confirma con <b>Agregar</b>.<br>' +
-      'Si esa opción no aparece, abre esta misma página en Safari y usa Compartir → Agregar a pantalla de inicio.';
+  if (browser === 'Chrome') {
+    status.innerHTML = guideHTML(
+      'iPhone / iPad',
+      'Chrome',
+      'Instala Patio Conecta desde Chrome',
+      [
+        'Toca <b>Compartir</b>.',
+        'Busca <b>“Añadir a pantalla de inicio”</b> o <b>“Agregar a pantalla de inicio”</b>.',
+        'Confirma con <b>Añadir</b> o <b>Agregar</b>.'
+      ],
+      'Si tu versión de Chrome no muestra esa opción, abre esta misma página en Safari como alternativa.'
+    );
     return;
   }
 
-  if (browser === 'edge') {
-    status.innerHTML =
-      '<strong>iPhone / iPad · Edge</strong><br>' +
-      '1. Abre el menú de <b>Compartir</b> de Edge.<br>' +
-      '2. Busca <b>Agregar a pantalla de inicio</b> o la opción equivalente.<br>' +
-      '3. Confirma con <b>Agregar</b>.<br>' +
-      'Si esa opción no aparece, abre esta misma página en Safari y usa Compartir → Agregar a pantalla de inicio.';
+  if (browser === 'Edge') {
+    status.innerHTML = guideHTML(
+      'iPhone / iPad',
+      'Edge',
+      'Instala Patio Conecta desde Edge',
+      [
+        'Abre el menú de <b>Compartir</b>.',
+        'Busca <b>“Añadir a pantalla de inicio”</b> o <b>“Agregar a pantalla de inicio”</b>.',
+        'Confirma con <b>Añadir</b> o <b>Agregar</b>.'
+      ],
+      'Si la opción no aparece, puedes abrir esta misma página en Safari.'
+    );
     return;
   }
 
-  if (browser === 'firefox') {
-    status.innerHTML =
-      '<strong>iPhone / iPad · Firefox</strong><br>' +
-      '1. Abre el menú de <b>Compartir</b> de Firefox.<br>' +
-      '2. Busca <b>Agregar a pantalla de inicio</b> si está disponible.<br>' +
-      '3. Confirma con <b>Agregar</b>.<br>' +
-      'Si Firefox no muestra esa opción, abre esta misma página en Safari y usa Compartir → Agregar a pantalla de inicio.';
+  if (browser === 'Firefox') {
+    status.innerHTML = guideHTML(
+      'iPhone / iPad',
+      'Firefox',
+      'Agrega Patio Conecta a tu pantalla de inicio',
+      [
+        'Abre el menú de <b>Compartir</b> de Firefox.',
+        'Busca <b>“Añadir a pantalla de inicio”</b> o <b>“Agregar a pantalla de inicio”</b>.',
+        'Confirma la acción.'
+      ],
+      'Si Firefox no ofrece esa opción en tu versión, abre esta misma página en Safari.'
+    );
     return;
   }
 
-  if (browser === 'opera') {
-    status.innerHTML =
-      '<strong>iPhone / iPad · Opera</strong><br>' +
-      'Busca en el menú de compartir la opción <b>Agregar a pantalla de inicio</b>.<br>' +
-      'Si no aparece, abre esta misma página en Safari y usa Compartir → Agregar a pantalla de inicio.';
+  if (browser === 'Navegador interno') {
+    status.innerHTML = guideHTML(
+      'iPhone / iPad',
+      'Navegador interno',
+      'Primero abre Patio Conecta en un navegador',
+      [
+        'Toca <b>⋯</b> o <b>Compartir</b> en la parte superior.',
+        'Elige <b>“Abrir en navegador”</b>, <b>“Abrir en Safari”</b> o <b>“Abrir en Chrome”</b>.',
+        'Cuando se abra el navegador, vuelve a pulsar <b>“Agregar Patio Conecta en iPhone / iPad”</b>.'
+      ],
+      'El nombre exacto de la opción puede cambiar según WhatsApp, Gmail, Instagram u otra aplicación.'
+    );
     return;
   }
 
-  if (['instagram','facebook','whatsapp','googleapp'].includes(browser)) {
-    status.innerHTML =
-      '<strong>iPhone / iPad · navegador interno</strong><br>' +
-      '1. Abre el menú de esta aplicación (⋯ o Compartir).<br>' +
-      '2. Elige <b>Abrir en navegador</b>, <b>Abrir en Safari</b> o <b>Abrir en Chrome</b>.<br>' +
-      '3. Ya en el navegador, utiliza <b>Compartir → Agregar a pantalla de inicio</b>.<br>' +
-      'El nombre exacto de la opción puede variar según la aplicación.';
-    return;
-  }
-
-  status.innerHTML =
-    '<strong>iPhone / iPad</strong><br>' +
-    '1. Abre el menú <b>Compartir</b> de tu navegador.<br>' +
-    '2. Busca <b>Agregar a pantalla de inicio</b>.<br>' +
-    '3. Confirma con <b>Agregar</b>.<br>' +
-    'Si tu navegador no muestra esa opción, abre esta misma página en Safari y utiliza Compartir → Agregar a pantalla de inicio.';
+  status.innerHTML = guideHTML(
+    'iPhone / iPad',
+    browser,
+    'Agrega Patio Conecta a tu pantalla de inicio',
+    [
+      'Abre el menú <b>Compartir</b> de tu navegador.',
+      'Busca <b>“Añadir a pantalla de inicio”</b> o <b>“Agregar a pantalla de inicio”</b>.',
+      'Confirma con <b>Añadir</b> o <b>Agregar</b>.'
+    ],
+    'Si tu navegador no muestra esa opción, abre esta misma página en Safari.'
+  );
 });
 
 manualBtn.addEventListener('click', () => {
+  const browser = getBrowser();
+
   if (isWindows()) {
-    status.innerHTML = '<strong>Windows</strong><br>Chrome/Edge → menú ⋮ → Instalar página como app / Instalar aplicación.';
+    status.innerHTML = guideHTML(
+      'Windows',
+      browser,
+      'Instala Patio Conecta',
+      [
+        'Abre el menú del navegador <b>⋮</b>.',
+        'Selecciona <b>Instalar página como app</b> o <b>Instalar aplicación</b>.',
+        'Confirma la instalación.'
+      ]
+    );
   } else if (isMac()) {
-    status.innerHTML = '<strong>Mac</strong><br>Chrome/Edge → Instalar página como app. En Safari compatible: Archivo → Agregar al Dock.';
+    status.innerHTML = guideHTML(
+      'Mac',
+      browser,
+      'Instala Patio Conecta',
+      browser === 'Safari'
+        ? [
+            'En Safari abre el menú <b>Archivo</b>.',
+            'Selecciona <b>Agregar al Dock</b>.',
+            'Confirma.'
+          ]
+        : [
+            'Abre el menú de Chrome o Edge.',
+            'Selecciona <b>Instalar página como app</b>.',
+            'Confirma.'
+          ]
+    );
+  } else if (isAndroid() && browser === 'Firefox') {
+    status.innerHTML = guideHTML(
+      'Android',
+      'Firefox',
+      'Agrega Patio Conecta desde Firefox',
+      [
+        'Toca el menú <b>⋮</b> de Firefox.',
+        'Selecciona <b>Instalar</b> o <b>Añadir / Agregar a pantalla de inicio</b>.',
+        'Confirma para crear el acceso de Patio Conecta.'
+      ],
+      'El icono se obtiene del manifest de Patio Conecta. Si ya tenías un acceso antiguo, elimínalo y vuelve a agregarlo para que Firefox tome el icono actualizado.'
+    );
   } else if (isAndroid()) {
-    status.innerHTML = '<strong>Android</strong><br>Chrome → menú ⋮ → Instalar app / Agregar a pantalla principal.';
+    status.innerHTML = guideHTML(
+      'Android',
+      browser,
+      'Instala Patio Conecta',
+      [
+        'Abre el menú <b>⋮</b> del navegador.',
+        'Selecciona <b>Instalar app</b> o <b>Añadir / Agregar a pantalla principal</b>.',
+        'Confirma la instalación.'
+      ]
+    );
   } else {
     status.innerHTML = '<strong>Instalación manual</strong><br>Utiliza la opción de instalar o agregar aplicación disponible en tu navegador.';
   }
