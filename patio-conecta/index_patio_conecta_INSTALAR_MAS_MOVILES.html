@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#5b168d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Patio Conecta">
+  <title>Patio Conecta</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/icon-180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-32.png">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:#f6f3f8;color:#291632}
+    .wrap{min-height:100vh;display:grid;place-items:center;padding:22px}
+    .card{width:min(720px,100%);background:#fff;border-radius:26px;padding:30px;box-shadow:0 18px 55px rgba(60,25,75,.14)}
+    .brand{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+    .brand img{width:86px;height:86px;border-radius:20px}
+    h1{margin:0;color:#5b168d;font-size:31px}
+    .sub{margin:5px 0 0;color:#756b7a}
+    .lead{color:#5f5664;line-height:1.55}
+    label{display:block;font-size:14px;font-weight:700;margin:13px 0 6px}
+    input{width:100%;padding:14px;border:1px solid #d8cddd;border-radius:12px;font-size:16px}
+    button,a.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px 16px;font-size:16px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer}
+    .primary{background:#5b168d;color:white}
+    .open{background:#ef3340;color:white;margin-bottom:12px}
+    .secondary{background:#f2eaf6;color:#5b168d;border:1px solid #e2d3e9}
+    .disabled{background:#eee;color:#888;cursor:not-allowed}
+    .hidden{display:none!important}
+    .error{display:none;color:#b42318;margin-top:10px}
+    .error.show{display:block}
+    .status{margin-top:16px;padding:15px;border-radius:14px;background:#faf8fb;line-height:1.55}
+    .status strong{color:#5b168d}
+    .actions{display:grid;gap:12px;margin-top:20px}
+    .back{margin-top:14px;background:white;color:#5b168d;border:1px solid #d9cce0}
+    .small{font-size:13px;color:#817787;margin-top:14px}
+    @media(max-width:560px){.card{padding:22px 18px}.brand img{width:70px;height:70px}h1{font-size:27px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<section id="loginCard" class="card">
+  <div class="brand">
+    <img src="./icons/icon-192.png" alt="Patio Conecta">
+    <div><h1>Ingreso Operadores</h1><p class="sub">Patio Conecta</p></div>
+  </div>
+  <p class="lead">Ingresa el nombre del local y la clave.</p>
+  <form id="loginForm">
+    <label for="local">Local</label>
+    <input id="local" required placeholder="Nombre del local">
+    <label for="clave">Clave</label>
+    <input id="clave" type="password" required placeholder="Clave">
+    <button class="primary" type="submit" style="margin-top:18px">Ingresar</button>
+    <div id="loginError" class="error">Local o clave incorrectos.</div>
+  </form>
+</section>
+
+<section id="portalCard" class="card hidden">
+  <div class="brand">
+    <img src="./icons/icon-192.png" alt="Patio Conecta">
+    <div><h1>Patio Conecta</h1><p class="sub">Acceso Operadores · Santiago</p></div>
+  </div>
+
+  <div class="actions">
+    <a class="btn open" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec">Abrir Patio Conecta</a>
+
+    <button id="installBtn" class="primary hidden">Instalar Patio Conecta en este equipo</button>
+
+    <button id="iosBtn" class="secondary hidden">Instalar Patio Conecta en este iPhone / iPad</button>
+  </div>
+
+  <div id="status" class="status">
+    <strong>Comprobando instalación…</strong><br>
+    Esta página mostrará el botón de instalación directa solo si el navegador realmente lo habilita.
+  </div>
+
+  <button id="logoutBtn" class="back">Volver al ingreso</button>
+</section>
+
+</div>
+
+<script>
+const q = s => document.querySelector(s);
+const loginCard = q('#loginCard');
+const portalCard = q('#portalCard');
+const loginError = q('#loginError');
+const installBtn = q('#installBtn');
+const iosBtn = q('#iosBtn');
+const manualBtn = null;
+const status = q('#status');
+let deferredPrompt = null;
+
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+function isAndroid() { return /android/i.test(navigator.userAgent); }
+function isWindows() { return /windows/i.test(navigator.userAgent); }
+function isMac() { return /macintosh|mac os x/i.test(navigator.userAgent) && !isIOS(); }
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+}
+function show(el) { el.classList.remove('hidden'); }
+
+q('#loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const local = q('#local').value.trim().toLowerCase();
+  const clave = q('#clave').value.trim().toLowerCase();
+  if (local === 'santiago' && clave === 'santiago') {
+    loginError.classList.remove('show');
+    loginCard.classList.add('hidden');
+    portalCard.classList.remove('hidden');
+    refreshInstallUI();
+  } else {
+    loginError.classList.add('show');
+  }
+});
+
+q('#logoutBtn').onclick = () => {
+  portalCard.classList.add('hidden');
+  loginCard.classList.remove('hidden');
+};
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  refreshInstallUI();
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  installBtn.classList.add('hidden');
+  if (manualBtn) manualBtn.classList.add('hidden');
+  status.innerHTML = '<strong>Instalación completada.</strong><br>Patio Conecta ya quedó instalada en este equipo.';
+});
+
+function refreshInstallUI() {
+  installBtn.classList.add('hidden');
+  iosBtn.classList.add('hidden');
+  if (manualBtn) manualBtn.classList.add('hidden');
+
+  if (isStandalone()) {
+    status.innerHTML = '<strong>Patio Conecta ya está instalada.</strong><br>Estás utilizando la aplicación en modo independiente.';
+    return;
+  }
+
+  if (deferredPrompt) {
+    show(installBtn);
+    status.innerHTML = '<strong>Instalación directa disponible.</strong><br>Pulsa “Instalar Patio Conecta en este equipo”.';
+    return;
+  }
+
+  if (isIOS()) {
+    show(iosBtn);
+    status.innerHTML = '<strong>iPhone / iPad</strong><br>Pulsa “Instalar Patio Conecta en este iPhone / iPad”. Te mostraremos exactamente qué tocar según el navegador que estés usando.';
+    return;
+  }
+
+  
+  status.innerHTML = '<strong>Patio Conecta</strong><br>Puedes abrir la aplicación desde el botón superior.';
+}
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) {
+    refreshInstallUI();
+    return;
+  }
+  deferredPrompt.prompt();
+  const result = await deferredPrompt.userChoice;
+  if (result.outcome === 'accepted') {
+    status.innerHTML = '<strong>Instalación iniciada.</strong><br>Confirma la ventana del navegador.';
+  } else {
+    status.innerHTML = '<strong>Instalación cancelada.</strong><br>Puedes volver a intentarlo.';
+  }
+  deferredPrompt = null;
+});
+
+iosBtn.addEventListener('click', () => {
+  const ua = navigator.userAgent;
+  const chromeIOS = /CriOS/i.test(ua);
+  const firefoxIOS = /FxiOS/i.test(ua);
+  const edgeIOS = /EdgiOS/i.test(ua);
+  const operaIOS = /OPiOS/i.test(ua);
+  const safariIOS = /Safari/i.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+
+  if (chromeIOS) {
+    status.innerHTML =
+      '<strong>Chrome en iPhone / iPad</strong><br>' +
+      '1. Toca <strong>Compartir ⬆︎</strong> a la derecha de la barra de direcciones.<br>' +
+      '2. Toca <strong>Agregar a pantalla de inicio</strong>.<br>' +
+      '3. Confirma con <strong>Agregar</strong>.<br><br>' +
+      '✅ Patio Conecta quedará en tu pantalla de inicio con su nombre e ícono.';
+  } else if (safariIOS) {
+    status.innerHTML =
+      '<strong>Safari en iPhone / iPad</strong><br>' +
+      '1. Toca <strong>Compartir ⬆︎</strong>.<br>' +
+      '2. Toca <strong>Agregar a pantalla de inicio</strong>.<br>' +
+      '3. Si aparece <strong>Abrir como app web</strong>, déjalo activado.<br>' +
+      '4. Toca <strong>Agregar</strong>.<br><br>' +
+      '✅ Patio Conecta quedará instalada en tu pantalla de inicio.';
+  } else if (edgeIOS) {
+    status.innerHTML =
+      '<strong>Edge en iPhone / iPad</strong><br>' +
+      '1. Abre el menú de Edge y toca <strong>Compartir</strong>.<br>' +
+      '2. Toca <strong>Agregar a pantalla de inicio</strong>.<br>' +
+      '3. Confirma con <strong>Agregar</strong>.';
+  } else if (firefoxIOS) {
+    status.innerHTML =
+      '<strong>Firefox en iPhone / iPad</strong><br>' +
+      '1. Abre el menú de Firefox y toca <strong>Compartir</strong>.<br>' +
+      '2. Toca <strong>Agregar a pantalla de inicio</strong>.<br>' +
+      '3. Confirma con <strong>Agregar</strong>.';
+  } else if (operaIOS) {
+    status.innerHTML =
+      '<strong>Opera en iPhone / iPad</strong><br>' +
+      '1. Abre el menú del navegador y toca <strong>Compartir</strong>.<br>' +
+      '2. Toca <strong>Agregar a pantalla de inicio</strong>.<br>' +
+      '3. Confirma con <strong>Agregar</strong>.';
+  } else {
+    status.innerHTML =
+      '<strong>iPhone / iPad</strong><br>' +
+      '1. Busca el botón <strong>Compartir ⬆︎</strong> de tu navegador.<br>' +
+      '2. Toca <strong>Agregar a pantalla de inicio</strong>.<br>' +
+      '3. Confirma con <strong>Agregar</strong>.';
+  }
+});
+
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      await navigator.serviceWorker.register('./sw.js');
+      await navigator.serviceWorker.ready;
+    } catch (err) {
+      status.innerHTML = '<strong>Error de instalación.</strong><br>No se pudo registrar el service worker.';
+    }
+    setTimeout(refreshInstallUI, 700);
+  });
+} else {
+  setTimeout(refreshInstallUI, 300);
+}
+</script>
+<!-- pc-combined-final-mobile-v1 -->
+</body>
+</html>
