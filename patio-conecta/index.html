@@ -21,23 +21,24 @@
     h1{margin:0;color:#5b168d;font-size:31px}
     .sub{margin:5px 0 0;color:#756b7a}
     .lead{color:#5f5664;line-height:1.55}
-    label{display:block;font-size:14px;font-weight:700;margin:13px 0 6px}
-    input{width:100%;padding:14px;border:1px solid #d8cddd;border-radius:12px;font-size:16px}
     button,a.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px 16px;font-size:16px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer}
+    .open{background:#ef3340;color:white}
     .primary{background:#5b168d;color:white}
-    .open{background:#ef3340;color:white;margin-bottom:12px}
     .secondary{background:#f2eaf6;color:#5b168d;border:1px solid #e2d3e9}
-    .disabled{background:#eee;color:#888;cursor:not-allowed}
     .hidden{display:none!important}
-    .error{display:none;color:#b42318;margin-top:10px}
-    .error.show{display:block}
     .status{margin-top:16px;padding:15px;border-radius:14px;background:#faf8fb;line-height:1.55}
     .status strong{color:#5b168d}
     .actions{display:grid;gap:12px;margin-top:20px}
-    .back{margin-top:14px;background:white;color:#5b168d;border:1px solid #d9cce0}
     .small{font-size:13px;color:#817787;margin-top:14px}
 
-    /* SOLO NUEVO: presentación visual de instrucciones de instalación */
+    .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+    .choice{min-height:155px;padding:20px;border-radius:18px;display:flex;flex-direction:column;justify-content:space-between;text-align:left}
+    .choice.web{background:#fff7f8;border:1px solid #f0d7db;color:#8c1f2c}
+    .choice.install{background:linear-gradient(135deg,#7b24b3,#5b168d);color:#fff}
+    .choice-icon{font-size:30px}
+    .choice strong{display:block;font-size:19px;margin-bottom:5px}
+    .choice small{font-size:12px;line-height:1.45;opacity:.86}
+
     .install-guide{display:grid;gap:12px}
     .install-detected{display:inline-flex;align-items:center;gap:7px;width:max-content;max-width:100%;padding:6px 10px;border-radius:999px;background:#efe6f4;color:#5b168d;font-size:12px;font-weight:700}
     .install-title{font-size:17px;font-weight:800;color:#291632}
@@ -49,68 +50,73 @@
     .install-note{font-size:12px;color:#7d7282}
     .share-icon{display:inline-flex;vertical-align:-4px;margin:0 3px}
     .share-icon svg{width:21px;height:21px;display:block;stroke:currentColor}
-.install-browser-icon{display:inline-flex;vertical-align:-6px;margin:0 5px;padding:3px;border:1px solid #ded3e4;border-radius:7px;background:#fff;color:#291632}
-.install-browser-icon svg{width:25px;height:25px;display:block;stroke:currentColor}
-.browser-actions{display:grid;gap:8px;margin-top:10px}
-.browser-action{width:100%;border:1px solid #dfd3e5;background:#fff;color:#5b168d;border-radius:11px;padding:11px 12px;font-weight:700;cursor:pointer}
+    .install-browser-icon{display:inline-flex;vertical-align:-6px;margin:0 5px;padding:3px;border:1px solid #ded3e4;border-radius:7px;background:#fff;color:#291632}
+    .install-browser-icon svg{width:25px;height:25px;display:block;stroke:currentColor}
+    .browser-actions{display:grid;gap:8px;margin-top:10px}
+    .browser-action{width:100%;border:1px solid #dfd3e5;background:#fff;color:#5b168d;border-radius:11px;padding:11px 12px;font-weight:700;cursor:pointer}
 
     @media(max-width:560px){
       .card{padding:22px 18px}
       .brand img{width:70px;height:70px}
       h1{font-size:27px}
+      .choice-grid{grid-template-columns:1fr}
+      .choice{min-height:130px}
     }
   </style>
 </head>
 <body>
 <div class="wrap">
 
-<section id="loginCard" class="card">
+<section id="portalCard" class="card">
   <div class="brand">
     <img src="./icons/icon-192.png" alt="Patio Conecta">
-    <div><h1>Ingreso Operadores</h1><p class="sub">Patio Conecta</p></div>
+    <div>
+      <h1>Patio Conecta</h1>
+      <p class="sub">Acceso Operadores · Santiago</p>
+    </div>
   </div>
-  <p class="lead">Ingresa el nombre del local y la clave.</p>
-  <form id="loginForm">
-    <label for="local">Local</label>
-    <input id="local" required placeholder="Nombre del local">
-    <label for="clave">Clave</label>
-    <input id="clave" type="password" required placeholder="Clave">
-    <button class="primary" type="submit" style="margin-top:18px">Ingresar</button>
-    <div id="loginError" class="error">Local o clave incorrectos.</div>
-  </form>
-</section>
 
-<section id="portalCard" class="card hidden">
-  <div class="brand">
-    <img src="./icons/icon-192.png" alt="Patio Conecta">
-    <div><h1>Patio Conecta</h1><p class="sub">Acceso Operadores · Santiago</p></div>
+  <p class="lead">
+    Elige cómo quieres acceder a Patio Conecta.
+    Puedes continuar desde el navegador o instalar la aplicación en este equipo.
+  </p>
+
+  <div class="choice-grid">
+    <a class="choice web" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec?authuser=0">
+      <span class="choice-icon">▣</span>
+      <span>
+        <strong>Continuar en la web</strong>
+        <small>Abre Patio Conecta en este navegador. El inicio de sesión se realiza dentro de la aplicación.</small>
+      </span>
+    </a>
+
+    <button id="installChoiceBtn" class="choice install" type="button">
+      <span class="choice-icon">⇩</span>
+      <span>
+        <strong>Descargar la app</strong>
+        <small>Instala Patio Conecta en este computador, teléfono o tablet.</small>
+      </span>
+    </button>
   </div>
 
   <div class="actions">
-    <a class="btn open" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec?authuser=0">Abrir Patio Conecta</a>
-
     <button id="installBtn" class="primary hidden">Instalar Patio Conecta en este equipo</button>
-
     <button id="iosBtn" class="secondary hidden">Agregar Patio Conecta en iPhone / iPad</button>
-
     <button id="manualBtn" class="secondary hidden">Ver cómo instalar en este equipo</button>
   </div>
 
-  <div id="status" class="status">
-    <strong>Comprobando instalación…</strong><br>
-    Esta página mostrará el botón de instalación directa solo si el navegador realmente lo habilita.
-  </div>
+  <div id="status" class="status hidden"></div>
 
-  <button id="logoutBtn" class="back">Volver al ingreso</button>
+  <div class="small">
+    El acceso y las credenciales se gestionan dentro de Patio Conecta.
+  </div>
 </section>
 
 </div>
 
 <script>
 const q = s => document.querySelector(s);
-const loginCard = q('#loginCard');
-const portalCard = q('#portalCard');
-const loginError = q('#loginError');
+const installChoiceBtn = q('#installChoiceBtn');
 const installBtn = q('#installBtn');
 const iosBtn = q('#iosBtn');
 const manualBtn = q('#manualBtn');
@@ -194,35 +200,17 @@ function guideHTML(device,browser,title,steps,note='') {
 
 function show(el) { el.classList.remove('hidden'); }
 
-q('#loginForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const local = q('#local').value.trim().toLowerCase();
-  const clave = q('#clave').value.trim().toLowerCase();
-  if (local === 'santiago' && clave === 'santiago') {
-    loginError.classList.remove('show');
-    loginCard.classList.add('hidden');
-    portalCard.classList.remove('hidden');
-    refreshInstallUI();
-  } else {
-    loginError.classList.add('show');
-  }
-});
-
-q('#logoutBtn').onclick = () => {
-  portalCard.classList.add('hidden');
-  loginCard.classList.remove('hidden');
-};
-
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
-  refreshInstallUI();
 });
 
 window.addEventListener('appinstalled', () => {
   deferredPrompt = null;
   installBtn.classList.add('hidden');
   manualBtn.classList.add('hidden');
+  iosBtn.classList.add('hidden');
+  status.classList.remove('hidden');
   status.innerHTML = '<strong>Instalación completada.</strong><br>Patio Conecta ya quedó instalada en este equipo.';
 });
 
@@ -230,6 +218,7 @@ function refreshInstallUI() {
   installBtn.classList.add('hidden');
   iosBtn.classList.add('hidden');
   manualBtn.classList.add('hidden');
+  status.classList.remove('hidden');
 
   if (isStandalone()) {
     status.innerHTML = '<strong>Patio Conecta ya está instalada.</strong><br>Estás utilizando la aplicación en modo independiente.';
@@ -258,6 +247,11 @@ function refreshInstallUI() {
   show(manualBtn);
   status.innerHTML = '<strong>El navegador no habilitó la instalación directa.</strong><br>Usa “Ver cómo instalar en este equipo”.';
 }
+
+installChoiceBtn.addEventListener('click', () => {
+  refreshInstallUI();
+  status.scrollIntoView({behavior:'smooth', block:'nearest'});
+});
 
 installBtn.addEventListener('click', async () => {
   if (!deferredPrompt) {
@@ -345,7 +339,7 @@ iosBtn.addEventListener('click', () => {
       [
         'Toca <b>⋯</b> o <b>Compartir</b> en la parte superior.',
         'Elige <b>“Abrir en navegador”</b>, <b>“Abrir en Safari”</b> o <b>“Abrir en Chrome”</b>.',
-        'Cuando se abra el navegador, vuelve a pulsar <b>“Agregar Patio Conecta en iPhone / iPad”</b>.'
+        'Cuando se abra el navegador, vuelve a pulsar <b>“Descargar la app”</b>.'
       ],
       'El nombre exacto de la opción puede cambiar según WhatsApp, Gmail, Instagram u otra aplicación.'
     );
@@ -366,7 +360,6 @@ iosBtn.addEventListener('click', () => {
 });
 
 manualBtn.addEventListener('click', () => {
-
   const browser = getBrowser();
 
   if (isWindows() && browser === 'Firefox') {
@@ -405,7 +398,6 @@ manualBtn.addEventListener('click', () => {
     });
     return;
   }
-
 
   if (isWindows()) {
     status.innerHTML = guideHTML(
@@ -472,12 +464,9 @@ if ('serviceWorker' in navigator) {
       await navigator.serviceWorker.register('./sw.js');
       await navigator.serviceWorker.ready;
     } catch (err) {
-      status.innerHTML = '<strong>Error de instalación.</strong><br>No se pudo registrar el service worker.';
+      // Conservamos la página usable aunque falle el service worker.
     }
-    setTimeout(refreshInstallUI, 700);
   });
-} else {
-  setTimeout(refreshInstallUI, 300);
 }
 </script>
 </body>
