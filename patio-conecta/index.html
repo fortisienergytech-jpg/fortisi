@@ -25,58 +25,83 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" sizes="180x180" href="./icons/icon-180.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-32.png">
+
   <style>
+    :root{
+      --purple:#5b168d;--purple2:#7a1fa2;--red:#ef3340;--orange:#f5a623;
+      --ink:#2d2430;--muted:#746b79;--line:#eadfee;--soft:#fbf8fc;--white:#fff;
+    }
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:#f6f3f8;color:#291632}
-    .wrap{min-height:100vh;display:grid;place-items:center;padding:22px}
-    .card{width:min(720px,100%);background:#fff;border-radius:26px;padding:30px;box-shadow:0 18px 55px rgba(60,25,75,.14)}
-    .brand{display:flex;align-items:center;gap:18px;margin-bottom:22px}
-    .brand img{width:86px;height:86px;border-radius:20px}
-    h1{margin:0;color:#5b168d;font-size:31px}
-    .sub{margin:5px 0 0;color:#756b7a}
-    .lead{color:#5f5664;line-height:1.55}
-    button,a.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px 16px;font-size:16px;font-weight:700;text-align:center;text-decoration:none;cursor:pointer}
-    .open{background:#ef3340;color:white}
-    .primary{background:#5b168d;color:white}
-    .secondary{background:#f2eaf6;color:#5b168d;border:1px solid #e2d3e9}
+    html,body{margin:0;min-height:100%}
+    body{
+      min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--ink);
+      background:
+        radial-gradient(circle at 15% 8%,rgba(255,255,255,.98) 0 17%,rgba(255,255,255,0) 42%),
+        radial-gradient(circle at 88% 90%,rgba(91,22,141,.08),rgba(91,22,141,0) 35%),
+        linear-gradient(180deg,#fbf9fc 0%,#f3eef6 100%);
+    }
+    .wrap{min-height:100vh;display:grid;place-items:center;padding:34px 22px}
+    .card{
+      width:min(820px,100%);background:rgba(255,255,255,.97);border:1px solid rgba(91,22,141,.08);
+      border-radius:30px;padding:34px;box-shadow:0 24px 70px rgba(62,26,78,.14);
+      position:relative;overflow:hidden
+    }
+    .card:before{content:"";position:absolute;inset:0 0 auto 0;height:7px;background:linear-gradient(90deg,var(--red) 0 34%,var(--orange) 34% 46%,var(--purple) 46% 100%)}
+    .brand{display:flex;align-items:center;gap:18px;margin:4px 0 26px}
+    .brand img{width:88px;height:88px;object-fit:contain;border-radius:20px;background:#fff}
+    .eyebrow{display:inline-flex;padding:6px 10px;border-radius:999px;background:#f2e9f7;color:var(--purple);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+    h1{margin:0;color:var(--purple);font-size:34px;line-height:1.05;letter-spacing:-.02em}
+    .sub{margin:7px 0 0;color:var(--muted);font-size:15px}
+    .intro{display:grid;gap:6px;margin-bottom:22px}
+    .intro h2{margin:0;font-size:23px;color:var(--ink)}
+    .lead{margin:0;color:#615766;line-height:1.55;font-size:15px;max-width:690px}
+    .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+    .choice{
+      min-height:184px;border-radius:22px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;
+      text-align:left;cursor:pointer;border:0;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease;position:relative;overflow:hidden
+    }
+    .choice:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(49,22,61,.10)}
+    .choice.web{background:#fffafb;border:1px solid #f1d9de;color:#8d2230}
+    .choice.install{background:linear-gradient(135deg,#7418a1 0%,#5b168d 58%,#48116f 100%);color:#fff;box-shadow:0 14px 28px rgba(91,22,141,.20)}
+    .choice-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;font-size:25px;font-weight:700;background:rgba(255,255,255,.82);border:1px solid currentColor;position:relative;z-index:1}
+    .choice.install .choice-icon{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+    .choice-copy{position:relative;z-index:1;margin-top:20px}
+    .choice strong{display:block;font-size:20px;margin-bottom:7px}
+    .choice small{display:block;font-size:13px;line-height:1.45;opacity:.86}
+    .actions{display:grid;gap:11px;margin-top:18px}
+    .primary,.secondary,.browser-action,.open-now{width:100%;border-radius:14px;padding:14px 16px;font-size:15px;font-weight:800;cursor:pointer}
+    .primary{border:0;background:var(--purple);color:white}
+    .secondary,.browser-action{border:1px solid #dfd3e5;background:#fff;color:var(--purple)}
+    .open-now{display:flex;align-items:center;justify-content:center;border:0;background:var(--red);color:#fff;text-decoration:none;margin-top:12px}
     .hidden{display:none!important}
-    .status{margin-top:16px;padding:15px;border-radius:14px;background:#faf8fb;line-height:1.55}
-    .status strong{color:#5b168d}
-    .actions{display:grid;gap:12px;margin-top:20px}
-    .small{font-size:13px;color:#817787;margin-top:14px}
-
-    .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
-    .choice{min-height:155px;padding:20px;border-radius:18px;display:flex;flex-direction:column;justify-content:space-between;text-align:left}
-    .choice.web{background:#fff7f8;border:1px solid #f0d7db;color:#8c1f2c}
-    .choice.install{background:linear-gradient(135deg,#7b24b3,#5b168d);color:#fff}
-    .choice-icon{font-size:30px}
-    .choice strong{display:block;font-size:19px;margin-bottom:5px}
-    .choice small{font-size:12px;line-height:1.45;opacity:.86}
-
+    .status{margin-top:18px;padding:17px;border-radius:18px;background:#faf8fb;border:1px solid #eee6f1;line-height:1.55;color:#514856}
+    .status strong{color:var(--purple)}
+    .small{font-size:12px;color:#8a808e;margin-top:18px;text-align:center}
     .install-guide{display:grid;gap:12px}
-    .install-detected{display:inline-flex;align-items:center;gap:7px;width:max-content;max-width:100%;padding:6px 10px;border-radius:999px;background:#efe6f4;color:#5b168d;font-size:12px;font-weight:700}
-    .install-title{font-size:17px;font-weight:800;color:#291632}
-    .install-copy{font-size:14px;color:#655a6a}
+    .install-detected{display:inline-flex;align-items:center;gap:7px;width:max-content;max-width:100%;padding:6px 10px;border-radius:999px;background:#efe6f4;color:var(--purple);font-size:12px;font-weight:800}
+    .install-title{font-size:18px;font-weight:800;color:var(--ink)}
     .install-steps{display:grid;gap:9px}
-    .install-step{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:10px 11px;border-radius:12px;background:#fff;border:1px solid #e9dfee}
-    .install-step-num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#5b168d;color:#fff;font-size:13px;font-weight:800}
-    .install-step div:last-child{padding-top:4px;font-size:14px;color:#4f4554}
+    .install-step{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start;padding:11px 12px;border-radius:13px;background:#fff;border:1px solid var(--line)}
+    .install-step-num{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--purple);color:#fff;font-size:13px;font-weight:800}
+    .install-step div:last-child{padding-top:5px;font-size:14px;color:#4f4554}
     .install-note{font-size:12px;color:#7d7282}
     .share-icon{display:inline-flex;vertical-align:-4px;margin:0 3px}
     .share-icon svg{width:21px;height:21px;display:block;stroke:currentColor}
     .install-browser-icon{display:inline-flex;vertical-align:-6px;margin:0 5px;padding:3px;border:1px solid #ded3e4;border-radius:7px;background:#fff;color:#291632}
     .install-browser-icon svg{width:25px;height:25px;display:block;stroke:currentColor}
     .browser-actions{display:grid;gap:8px;margin-top:10px}
-    .browser-action{width:100%;border:1px solid #dfd3e5;background:#fff;color:#5b168d;border-radius:11px;padding:11px 12px;font-weight:700;cursor:pointer}
-
-    @media(max-width:560px){
-      .card{padding:22px 18px}
-      .brand img{width:70px;height:70px}
-      h1{font-size:27px}
-      .choice-grid{grid-template-columns:1fr}
-      .choice{min-height:130px}
+    .installed-box{display:grid;gap:12px}
+    .installed-head{display:flex;gap:13px;align-items:flex-start}
+    .installed-check{flex:0 0 auto;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#edf8f2;color:#18794e;font-weight:900;font-size:22px}
+    .installed-head h3{margin:0 0 4px;color:var(--purple);font-size:19px}
+    .installed-head p{margin:0;color:#625866;font-size:14px;line-height:1.45}
+    .launch-hint{padding:12px 13px;border-radius:13px;background:#fff;border:1px solid var(--line);font-size:13px;color:#504653;line-height:1.5}
+    @media(max-width:640px){
+      .wrap{padding:16px}.card{padding:24px 18px;border-radius:24px}.brand{gap:13px}.brand img{width:70px;height:70px}
+      h1{font-size:28px}.intro h2{font-size:21px}.choice-grid{grid-template-columns:1fr}.choice{min-height:145px}
     }
   </style>
+
 </head>
 <body>
 <div class="wrap">
@@ -85,30 +110,31 @@
   <div class="brand">
     <img src="./icons/icon-192.png" alt="Patio Conecta">
     <div>
+      <span class="eyebrow">Acceso Operadores</span>
       <h1>Patio Conecta</h1>
-      <p class="sub">Acceso Operadores · Santiago</p>
+      <p class="sub">Patio Bellavista · Santiago</p>
     </div>
   </div>
 
-  <p class="lead">
-    Elige cómo quieres acceder a Patio Conecta.
-    Puedes continuar desde el navegador o instalar la aplicación en este equipo.
-  </p>
+  <div class="intro">
+    <h2>¿Cómo quieres ingresar?</h2>
+    <p class="lead">Accede desde el navegador o instala Patio Conecta para abrirla como una aplicación en tu equipo.</p>
+  </div>
 
   <div class="choice-grid">
     <a class="choice web" href="https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec?authuser=0">
       <span class="choice-icon">▣</span>
-      <span>
+      <span class="choice-copy">
         <strong>Continuar en la web</strong>
-        <small>Abre Patio Conecta en este navegador. El inicio de sesión se realiza dentro de la aplicación.</small>
+        <small>Abre Patio Conecta en este navegador y accede con tus credenciales habituales.</small>
       </span>
     </a>
 
     <button id="installChoiceBtn" class="choice install" type="button">
-      <span class="choice-icon">⇩</span>
-      <span>
-        <strong>Descargar la app</strong>
-        <small>Instala Patio Conecta en este computador, teléfono o tablet.</small>
+      <span class="choice-icon">↓</span>
+      <span class="choice-copy">
+        <strong>Instalar Patio Conecta</strong>
+        <small>Déjala disponible como aplicación en tu computador, teléfono o tablet.</small>
       </span>
     </button>
   </div>
@@ -121,14 +147,13 @@
 
   <div id="status" class="status hidden"></div>
 
-  <div class="small">
-    El acceso y las credenciales se gestionan dentro de Patio Conecta.
-  </div>
+  <div class="small">Acceso exclusivo para operadores autorizados de Patio Bellavista.</div>
 </section>
 
 </div>
 
 <script>
+const APP_URL = 'https://script.google.com/macros/s/AKfycbyGblqiV68dcWTPXopvJDbDJJYgpizVYq0InCan8NWu3h99pSyo_NoqebB_xtQavNKYGQ/exec?authuser=0';
 const q = s => document.querySelector(s);
 const installChoiceBtn = q('#installChoiceBtn');
 const installBtn = q('#installBtn');
@@ -146,6 +171,33 @@ function isWindows() { return /windows/i.test(navigator.userAgent); }
 function isMac() { return /macintosh|mac os x/i.test(navigator.userAgent) && !isIOS(); }
 function isStandalone() {
   return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+}
+
+function installedMessage() {
+  let place = 'tu menú de aplicaciones';
+  if (isMac()) {
+    place = '<b>Aplicaciones</b>, <b>Launchpad</b> o el <b>Dock</b> si decidiste mantenerla ahí';
+  } else if (isWindows()) {
+    place = '<b>Inicio</b>, <b>Aplicaciones</b> o la <b>barra de tareas</b> si la fijaste';
+  } else if (isIOS()) {
+    place = 'la <b>pantalla de inicio</b> o la <b>Biblioteca de apps</b>';
+  } else if (isAndroid()) {
+    place = 'la <b>pantalla principal</b> o el <b>cajón de aplicaciones</b>';
+  }
+  return `
+    <div class="installed-box">
+      <div class="installed-head">
+        <div class="installed-check">✓</div>
+        <div>
+          <h3>Patio Conecta ya está instalada</h3>
+          <p>La instalación terminó correctamente. Ya puedes abrirla como una aplicación.</p>
+        </div>
+      </div>
+      <div class="launch-hint">Ahora puedes abrir <b>Patio Conecta</b> desde ${place}.</div>
+      <a class="open-now" href="${APP_URL}">Abrir Patio Conecta ahora →</a>
+      <div class="install-note">Puedes cerrar esta página cuando quieras.</div>
+    </div>
+  `;
 }
 
 function getBrowser() {
@@ -225,7 +277,7 @@ window.addEventListener('appinstalled', () => {
   manualBtn.classList.add('hidden');
   iosBtn.classList.add('hidden');
   status.classList.remove('hidden');
-  status.innerHTML = '<strong>Instalación completada.</strong><br>Patio Conecta ya quedó instalada en este equipo.';
+  status.innerHTML = installedMessage();
 });
 
 function refreshInstallUI() {
@@ -235,7 +287,7 @@ function refreshInstallUI() {
   status.classList.remove('hidden');
 
   if (isStandalone()) {
-    status.innerHTML = '<strong>Patio Conecta ya está instalada.</strong><br>Estás utilizando la aplicación en modo independiente.';
+    status.innerHTML = installedMessage();
     return;
   }
 
