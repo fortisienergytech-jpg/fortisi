@@ -739,7 +739,7 @@ manualBtn.addEventListener('click', () => {
     status.innerHTML = guideHTML(
       'Mac',
       browser,
-      'Instala Patio Conecta',
+      browser === 'Safari' ? 'Instala Patio Conecta' : 'Patio Conecta en Chrome',
       browser === 'Safari'
         ? [
             'Haz clic en el icono <b>Compartir</b> ' + shareIcon() + ' que está en la esquina superior derecha de Safari.',
@@ -747,13 +747,14 @@ manualBtn.addEventListener('click', () => {
             'Revisa que el nombre sea <b>“Patio Conecta”</b> y confirma con <b>“Agregar”</b>.'
           ]
         : [
-            'Abre el menú de Chrome o Edge.',
-            'Selecciona <b>Instalar página como app</b>.',
-            'Confirma.'
+            'Haz clic en los <b>tres puntos ⋮</b> de Chrome, arriba a la derecha.',
+            'Entra a <b>“Transmitir, guardar y compartir”</b>.',
+            'Si ves <b>“Abrir en Patio Conecta”</b>, la app <b>ya está instalada</b>. Haz clic ahí para abrirla.',
+            'Si ves <b>“Instalar Patio Conecta…”</b>, selecciónalo y confirma la instalación.'
           ],
       browser === 'Safari'
         ? 'Listo: Patio Conecta quedará disponible como una aplicación en tu Mac y podrás abrirla desde el Dock o desde Aplicaciones.'
-        : ''
+        : 'Chrome muestra “Instalar Patio Conecta…” cuando aún no está instalada y “Abrir en Patio Conecta” cuando ya lo está.'
     );
   } else if (isAndroid() && browser === 'Firefox') {
     status.innerHTML = guideHTML(
